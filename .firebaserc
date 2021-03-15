@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fisio-app-34ed7": {
+      "hosting": {
+        "fisio-app": [
+          "fisio-app-34ed7"
+        ]
+      }
+    }
+  }
+}
