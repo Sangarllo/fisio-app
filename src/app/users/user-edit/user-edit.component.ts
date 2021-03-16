@@ -44,13 +44,13 @@ export class UserEditComponent implements OnInit {
       uid: [{value: '0', disabled: true}],
       active: true,
       email: ['', [Validators.required,
+        Validators.email,
         Validators.minLength(3),
         Validators.maxLength(50)]],
       displayName: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
     });
-
   }
 
   public onResetForm(): void {

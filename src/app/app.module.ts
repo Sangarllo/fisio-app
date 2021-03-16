@@ -11,6 +11,7 @@ import { HomeModule } from './home/home.module';
 
 import localeEs from '@angular/common/locales/es';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     SharedModule,
-    HomeModule
+    HomeModule,
+    NgbModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

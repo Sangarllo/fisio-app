@@ -35,6 +35,10 @@ export class UsersComponent implements OnInit {
     this.router.navigate([`usuarios/${user.uid}`]);
   }
 
+  public editUser(user: IUser): void {
+    this.router.navigate([`usuarios/${user.uid}/editar`]);
+  }
+
   public deleteUser(user: IUser): void {
     console.log(`deleting ${user.uid}`);
     Swal.fire({

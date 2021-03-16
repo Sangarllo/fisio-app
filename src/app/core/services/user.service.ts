@@ -25,8 +25,7 @@ export class UsersService {
   getAllUsers(): Observable<IUser[]> {
     this.userCollection = this.afs.collection<IUser>(
       USERS_COLLECTION,
-      ref => ref.where('active', '==', true)
-                .orderBy('displayName')
+      ref => ref.orderBy('displayName')
     );
 
     return this.userCollection.valueChanges()
