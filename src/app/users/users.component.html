@@ -4,33 +4,46 @@
 </pre>
 -->
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Id</th>
-            <th scope="col">Active</th>
-            <th scope="col">Nombre</th>
-            <th scope="col">Email</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let user of users; index as i">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ user.uid }}</td>
-            <td>{{ user.active }}</td>
-            <td>{{ user.displayName }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-                <button type="button" class="btn btn-primary" (click)="gotoUser(user)">Ver</button>&nbsp;
-                <button type="button" class="btn btn-success" (click)="editUser(user)">Editar</button>&nbsp;
-                <button type="button" class="btn btn-danger" (click)="deleteUser(user)">Borrar</button>
-            </td>
 
-        </tr>
-    </tbody>
-</table>
+<div class="jumbotron">
+    <h1 class="text-center">Listado de Usuarios</h1>
+</div>
+
+<div class="container">
+
+    <button type="button" class="btn btn-primary" (click)="gotoNewUser()">Nuevo Usuario</button>&nbsp;
+
+    <br/><br/>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Active</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ user.uid }}</td>
+                <td>{{ user.active }}</td>
+                <td>{{ user.surname }}, {{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="gotoUser(user)">Ver</button>&nbsp;
+                    <button type="button" class="btn btn-success" (click)="editUser(user)">Editar</button>&nbsp;
+                    <button type="button" class="btn btn-danger" (click)="deleteUser(user)">Borrar</button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+</div>
 
 <ng-template #loadingTemplate>
     <app-loading></app-loading>

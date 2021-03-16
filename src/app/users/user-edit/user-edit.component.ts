@@ -20,6 +20,7 @@ export class UserEditComponent implements OnInit {
   userForm!: FormGroup;
   submitted = false;
   pageTitle = 'Creación de un nuevo usuario';
+  btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
 
@@ -47,9 +48,16 @@ export class UserEditComponent implements OnInit {
         Validators.email,
         Validators.minLength(3),
         Validators.maxLength(50)]],
-      displayName: ['', [Validators.required,
+      name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
+      surname: ['', [Validators.required,
+        Validators.minLength(3),
+         Validators.maxLength(50)]],
+      address: [''],
+      locality: [''],
+      birthdate: [''],
+      occupation: ['']
     });
   }
 
@@ -84,7 +92,7 @@ export class UserEditComponent implements OnInit {
    Swal.fire({
      icon: 'success',
      title: 'Datos guardados con éxito',
-     text: `Los datos de ${this.user.displayName} se han guardado correctamente`,
+     text: `Los datos de ${this.user.name} ${this.user.surname} se han guardado correctamente`,
      // footer: '<a href>Why do I have this issue?</a>'
    });
    this.router.navigate([`/${User.PATH_URL}`]);
@@ -100,8 +108,10 @@ export class UserEditComponent implements OnInit {
 
     if ( uidUser === '0' ) {
       this.pageTitle = 'Creación de un nuevo usuario';
+      this.btnText = 'Crear nuevo';
       this.user = User.InitDefault();
     } else {
+      this.btnText = 'Actualizar datos';
       this.usersSrv.getOneUser(uidUser)
       .subscribe({
         next: (user: IUser | undefined) => {
@@ -126,7 +136,7 @@ export class UserEditComponent implements OnInit {
     if (this.user.uid === '0') {
       this.pageTitle = 'Creando un nuevo usuario';
     } else {
-      this.pageTitle = `Editando al usuario ${this.user.displayName}`;
+      this.pageTitle = `Editando al usuario ${this.user.name} ${this.user.surname}`;
     }
 
     // Update the data on the form
@@ -134,7 +144,12 @@ export class UserEditComponent implements OnInit {
       uid: this.user.uid,
       active: this.user.active,
       email: this.user.email,
-      displayName: this.user.displayName,
+      name: this.user.name,
+      surname: this.user.surname,
+      address: this.user.address,
+      locality: this.user.locality,
+      birthdate: this.user.birthdate,
+      occupation: this.user.occupation,
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation

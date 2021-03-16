@@ -25,7 +25,8 @@ export class UsersService {
   getAllUsers(): Observable<IUser[]> {
     this.userCollection = this.afs.collection<IUser>(
       USERS_COLLECTION,
-      ref => ref.orderBy('displayName')
+      ref => ref.orderBy('surname')
+                .orderBy('name')
     );
 
     return this.userCollection.valueChanges()
@@ -80,7 +81,12 @@ export class UsersService {
       uid: user.uid,
       active: user.active ?? true,
       email: user.email,
-      displayName: user.displayName,
+      name: user.name,
+      surname: user.surname,
+      address: user.address,
+      locality: user.locality,
+      birthdate: user.birthdate,
+      occupation: user.occupation,
     };
 
     // console.log(`updateUserData 2: ${JSON.stringify(data)}`);

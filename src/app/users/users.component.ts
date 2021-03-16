@@ -31,6 +31,11 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  public gotoNewUser(): void {
+    this.router.navigate([`usuarios/0/editar`]);
+  }
+
+
   public gotoUser(user: IUser): void {
     this.router.navigate([`usuarios/${user.uid}`]);
   }
@@ -54,7 +59,7 @@ export class UsersComponent implements OnInit {
         this.usersSrv.deleteUser(user);
         Swal.fire(
           '¡Borrado!',
-          `${user.displayName} ha sido borrado`,
+          `${user.name} ha sido borrado`,
           'success'
         );
       }

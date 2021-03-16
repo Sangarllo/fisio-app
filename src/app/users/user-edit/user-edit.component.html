@@ -13,9 +13,36 @@
         </div>
 
         <div class="form-group">
-            <label for="displayName">Nombre</label>
-            <input type="text" formControlName="displayName" class="form-control" placeholder="Nombre" />
+            <label for="name">Nombre</label>
+            <input type="text" formControlName="name" class="form-control" placeholder="Nombre" />
         </div>
+
+        <div class="form-group">
+            <label for="surname">Apellidos</label>
+            <input type="text" formControlName="surname" class="form-control" placeholder="Apellidos" />
+        </div>
+
+        <div class="form-group">
+            <label for="address">Dirección</label>
+            <input type="text" formControlName="address" class="form-control" placeholder="Dirección" />
+        </div>
+
+        <div class="form-group">
+            <label for="locality">Localidad</label>
+            <input type="text" formControlName="locality" class="form-control" placeholder="Localidad" />
+        </div>
+
+        <div class="form-group">
+            <label for="birthdate">Nacimiento</label>
+            <input type="text" formControlName="birthdate" class="form-control" placeholder="Nacimiento" />
+        </div>
+
+        <div class="form-group">
+            <label for="occupation">Profesión</label>
+            <input type="text" formControlName="occupation" class="form-control" placeholder="Profesión" />
+        </div>
+
     </form>
-    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid" (click)="onSaveForm()">Crear</button>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
 </div>

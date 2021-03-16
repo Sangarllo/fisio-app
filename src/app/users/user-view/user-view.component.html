@@ -1,56 +1,12 @@
-<div class="section-wrapper">
+<div class="container">
 
-    <mat-card *ngIf="user$ | async as user; else noUserTemplate">
-
-        <div class="row">
-            <div class="col-lg-3 col-md-4 col-12" style="text-align: center;">
-                <img [src]="user.photoURL" class="img-thumbnail">
-            </div>
-
-            <div class="col-lg-9 col-md-8 col-12">
-
-                {{ user | json }}
-
-                <!-- <mat-card-content>
-
-                    <mat-tab-group>
-
-                        <mat-tab class="tab-card-detail" label="Datos Personales">
-
-                            <mat-form-field class="card-detail">
-                                <input matInput type="text" disabled="true" [value]="user.displayName" placeholder="Nombre Completo" />
-                                <mat-icon matSuffix>assignment_ind</mat-icon>
-                            </mat-form-field>
-
-                            <mat-form-field class="card-detail">
-                                <input matInput type="text" disabled="true" [value]="user.email" placeholder="Email" />
-                                <mat-icon matSuffix>email</mat-icon>
-                            </mat-form-field>
-
-                            <mat-form-field class="card-detail">
-                                <input matInput type="text" disabled="true" [value]="(user.emailVerified) ? 'SI' : 'NO'" placeholder="Email verificado " />
-                                <mat-icon matSuffix>check_circle_outline</mat-icon>
-                            </mat-form-field>
-
-                            <mat-form-field class="card-detail">
-                                <input matInput type="text" disabled="true" [value]="user.role" placeholder="Rol" />
-                                <mat-icon matSuffix>supervised_user_circle</mat-icon>
-                            </mat-form-field>
-
-                        </mat-tab>
-
-                    </mat-tab-group>
-
-                </mat-card-content>
-
-                <mat-card-actions>
-                    <button mat-raised-button type="button" (click)="gotoList()" color="warn">Volver al listado</button> &nbsp;
-                    <button mat-raised-button type="button" (click)="editItem()" color="warn">Editar</button>
-                </mat-card-actions> -->
-            </div>
+    <div *ngIf="user$ | async as user; else noUserTemplate" class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
-
-    </mat-card>
+    </div>
 
 </div>
 
