@@ -1,0 +1,9 @@
+<div *ngIf="users; else loadingTemplate" class="section-wrapper">
+
+    {{ users | json }}
+
+</div>
+
+<ng-template #loadingTemplate>
+    <app-loading></app-loading>
+</ng-template>

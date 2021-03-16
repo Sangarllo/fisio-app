@@ -1,0 +1,14 @@
+<div *ngIf="afAuth.authState | async as user; else noAuthTemplate" class="logout">
+    <p>
+        Has accedido como <strong>{{ user.email }}</strong>
+    </p>
+
+    <button mat-stroked-button (click)="afAuth.signOut()">Salir</button>
+</div>
+
+
+<ng-template #noAuthTemplate>
+    <div *ngIf="!(afAuth.authState | async)" class="section-wrapper">
+        <app-email-login></app-email-login>
+    </div>
+</ng-template>

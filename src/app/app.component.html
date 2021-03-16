@@ -16,11 +16,7 @@
 </nav>
 
 <div class="jumbotron">
-    <h1 class="text-center">Welcome to angular 11 and bootstrap 4</h1>
+    <h1 class="text-center">Bienvenido!</h1>
 </div>
 
-<ul>
-    <li *ngFor="let item of item$ | async">
-        {{ item.name }}
-    </li>
-</ul>
+<router-outlet></router-outlet>
