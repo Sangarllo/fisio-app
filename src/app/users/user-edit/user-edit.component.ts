@@ -136,7 +136,7 @@ export class UserEditComponent implements OnInit {
     if (this.user.uid === '0') {
       this.pageTitle = 'Creando un nuevo usuario';
     } else {
-      this.pageTitle = `Editando al usuario ${this.user.name} ${this.user.surname}`;
+      this.pageTitle = `Editando los datos de ${this.user.name} ${this.user.surname}`;
     }
 
     // Update the data on the form

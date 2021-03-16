@@ -39,7 +39,7 @@ export class UserViewComponent implements OnInit {
     this.router.navigate([`/${User.PATH_URL}`]);
   }
 
-  public editItem(): void {
+  public editUser(): void {
     this.router.navigate([`/${User.PATH_URL}/${this.uidUser}/editar`]);
   }
 }
