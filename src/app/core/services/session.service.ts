@@ -25,7 +25,8 @@ export class SessionsService {
   getAllSessionsFromUser(userId: string): Observable<ISession[]> {
     this.sessionCollection = this.afs.collection<ISession>(
       SESSIONS_COLLECTION,
-      ref => ref.orderBy('date')
+      ref => ref.where('userId', '==', userId)
+                .orderBy('date')
     );
 
     return this.sessionCollection.valueChanges()

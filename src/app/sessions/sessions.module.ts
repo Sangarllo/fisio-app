@@ -6,7 +6,9 @@ import { SessionsComponent } from './sessions.component';
 
 
 @NgModule({
-  declarations: [SessionsComponent],
+  declarations: [
+    SessionsComponent,
+  ],
   imports: [
     CommonModule,
     SessionsRoutingModule
