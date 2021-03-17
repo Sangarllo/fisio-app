@@ -38,6 +38,21 @@ export class SessionsService {
       );
   }
 
+  getAllSessions(): Observable<ISession[]> {
+    this.sessionCollection = this.afs.collection<ISession>(
+      SESSIONS_COLLECTION,
+      ref => ref.orderBy('date')
+    );
+
+    return this.sessionCollection.valueChanges()
+      .pipe(
+        map((sessions) => sessions.map(
+          session => {
+            return { ...session };
+          }))
+      );
+  }
+
   getOneSession(idSession: string): Observable<ISession | undefined> {
     return this.sessionCollection.doc(idSession)
       .valueChanges({ uidField: 'id' })

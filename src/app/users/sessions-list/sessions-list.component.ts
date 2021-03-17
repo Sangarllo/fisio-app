@@ -36,11 +36,11 @@ export class SessionsListComponent implements OnInit {
 
 
   public gotoSession(session: ISession): void {
-    this.router.navigate([`consultas/${session.id}`]);
+    this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}`]);
   }
 
   public editSession(session: ISession): void {
-    this.router.navigate([`consultas/${session.id}/editar`]);
+    this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}/editar`]);
   }
 
   public deleteSession(session: ISession): void {
