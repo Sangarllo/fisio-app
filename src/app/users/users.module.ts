@@ -7,8 +7,8 @@ import { UsersRoutingModule } from '@app/users/users-routing.module';
 import { UsersComponent } from '@app/users/users.component';
 import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
-import { SessionEditComponent } from '@app/users/session-edit/session-edit.component';
-import { SessionsListComponent } from '@app/users/sessions-list/sessions-list.component';
+import { UserSessionEditComponent } from '@app/users/user-session-edit/user-session-edit.component';
+import { UserSessionsListComponent } from '@app/users/user-sessions-list/user-sessions-list.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +16,8 @@ import { SessionsListComponent } from '@app/users/sessions-list/sessions-list.co
     UsersComponent,
     UserViewComponent,
     UserEditComponent,
-    SessionEditComponent,
-    SessionsListComponent,
+    UserSessionEditComponent,
+    UserSessionsListComponent,
   ],
   imports: [
     SharedModule,

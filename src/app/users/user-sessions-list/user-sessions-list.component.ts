@@ -8,11 +8,11 @@ import { SessionsService } from '@services/session.service';
 import { ISession } from '@models/session';
 
 @Component({
-  selector: 'sh-sessions-list',
-  templateUrl: './sessions-list.component.html',
-  styleUrls: ['./sessions-list.component.scss']
+  selector: 'sh-user-sessions-list',
+  templateUrl: './user-sessions-list.component.html',
+  styleUrls: ['./user-sessions-list.component.scss']
 })
-export class SessionsListComponent implements OnInit {
+export class UserSessionsListComponent implements OnInit {
 
   public uidUser;
   public sessions$: Observable<ISession[]>;

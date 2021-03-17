@@ -12,11 +12,11 @@ import { UsersService } from '@services/user.service';
 import { SessionsService } from '@services/session.service';
 
 @Component({
-  selector: 'app-session-edit',
-  templateUrl: './session-edit.component.html',
-  styleUrls: ['./session-edit.component.scss']
+  selector: 'app-user-session-edit',
+  templateUrl: './user-session-edit.component.html',
+  styleUrls: ['./user-session-edit.component.scss']
 })
-export class SessionEditComponent implements OnInit {
+export class UserSessionEditComponent implements OnInit {
 
   sessionForm!: FormGroup;
   submitted = false;

@@ -6,7 +6,7 @@ import { LoginPageComponent } from '@app/users/login-page/login-page.component';
 import { UsersComponent } from '@app/users/users.component';
 import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
-import { SessionEditComponent } from '@app/users/session-edit/session-edit.component';
+import { UserSessionEditComponent } from '@app/users/user-session-edit/user-session-edit.component';
 
 const routes: Routes = [
   {
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: ':uid/consultas/:sessionId/editar',
-    component: SessionEditComponent,
+    component: UserSessionEditComponent,
   }
 ];
 
