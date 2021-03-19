@@ -4,7 +4,13 @@
 
 <div class="container">
 
-    <button type="button" class="btn btn-primary" (click)="gotoNewUser()">Nuevo Usuario</button>&nbsp;
+    <form>
+        <div class="form-group form-inline">
+            <button class="btn btn-primary" (click)="gotoNewUser()">
+                <i class="bi-person-plus-fill"></i>&nbsp;Nuevo Usuario
+            </button>&nbsp;&nbsp; &nbsp;&nbsp; Buscar Usuario: <input class="form-control ml-2" type="text" [formControl]="filter" />
+        </div>
+    </form>
 
     <br/><br/>
 
@@ -20,18 +26,23 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users; index as i">
+            <tr *ngFor="let user of users$ | async as users; index as i">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ user.uid }}</td>
                 <td>{{ user.active }}</td>
                 <td>{{ user.surname }}, {{ user.name }}</td>
                 <td>{{ user.email }}</td>
                 <td>
-                    <button type="button" class="btn btn-primary" (click)="gotoUser(user)">Ver</button>&nbsp;
-                    <button type="button" class="btn btn-success" (click)="editUser(user)">Editar</button>&nbsp;
-                    <button type="button" class="btn btn-danger" (click)="deleteUser(user)">Borrar</button>
+                    <a (click)="gotoUser(user)">
+                        <i class="bi-person-square text-info"></i>
+                    </a>&nbsp;&nbsp;
+                    <a (click)="editUser(user)">
+                        <i class="bi-pencil-square text-success"></i>
+                    </a>&nbsp;&nbsp;
+                    <a (click)="deleteUser(user)">
+                        <i class="bi-trash text-danger" style="font-size: 1rem;"></i>
+                    </a>
                 </td>
-
             </tr>
         </tbody>
     </table>

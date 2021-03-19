@@ -1,34 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { IUser } from '@models/user';
 import { UsersService } from '@services/user.service';
 
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  providers: [DecimalPipe]
 })
 export class UsersComponent implements OnInit {
 
-  public loading = true;
   public users: IUser[];
+  users$: Observable<IUser[]>;
+  filter = new FormControl('');
 
   constructor(
     private router: Router,
     private usersSrv: UsersService,
+    pipe: DecimalPipe,
   ) {
-    this.loading = true;
-  }
-
-  ngOnInit(): void {
     this.usersSrv.getAllUsers()
     .subscribe( (users: IUser[]) => {
       this.users = users;
-      this.loading = false;
+      this.users$ = this.filter.valueChanges.pipe(
+        startWith(''),
+        map(text => this.search(text, pipe))
+    );
     });
+  }
+
+  ngOnInit(): void {
   }
 
   public gotoNewUser(): void {
@@ -64,6 +74,17 @@ export class UsersComponent implements OnInit {
         );
       }
     });
+  }
+
+  private search(text: string, pipe: PipeTransform): IUser[] {
+    return this.users.filter(user => {
+      const term = text.toLowerCase();
+      return user.name.toLowerCase().includes(term)
+          || user.surname.toLowerCase().includes(term)
+          || user.email.toLowerCase().includes(term);
+    });
+
+    // || pipe.transform(user.email).includes(term);
   }
 
   public addItem(): void {
