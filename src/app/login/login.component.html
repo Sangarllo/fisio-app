@@ -1,0 +1,28 @@
+<div *ngIf="afAuth.authState | async as user; else noAuthTemplate" class="logout container">
+
+    <div class="alert alert-success m-3 text-center" role="alert">
+        Has accedido como <strong>{{ user.email }}</strong>
+    </div>
+
+    <div class="container mt-3 mb-3 text-center">
+
+        <a routerLink="/home">
+            <i class="bi-house" style="font-size: 4rem; color:#bc2a8d; "></i>
+        </a>
+        &nbsp;&nbsp;
+        <a (click)="afAuth.signOut()">
+            <i class="bi-sunset-fill " style="font-size: 4rem; color:gray; "></i>
+        </a>
+
+    </div>
+
+    <button class="btn btn-light btn-block my-2" (click)="afAuth.signOut()">Salir</button>
+</div>
+
+
+<ng-template #noAuthTemplate>
+
+    <div *ngIf="!(afAuth.authState | async)" class="section-wrapper">
+        <app-email-login></app-email-login>
+    </div>
+</ng-template>

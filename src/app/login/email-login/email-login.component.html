@@ -1,0 +1,77 @@
+<div class="card">
+
+    <div class="jumbotron">
+        <h1 class="text-center">Login</h1>
+    </div>
+
+    <div class="container">
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+            <div *ngIf="isSignup">
+                <h3>Crea nueva cuenta de usuario con tu email</h3>
+                <button type="submit" class="btn btn-light btn-block my-2" (click)="changeType('login')">
+            ¿Eres un usuario ya registrado?
+          </button>
+            </div>
+
+            <div *ngIf="isLogin">
+                <h3>Acceso con correo electrónico</h3>
+                <button type="submit" class="btn btn-light btn-block my-2" (click)="changeType('signup')">
+            ¿Quieres darte de alta como usuario con tu email?
+          </button>
+            </div>
+
+            <div *ngIf="isPasswordReset">
+                <h3>Reiniciar contraseña</h3>
+                <button type="submit" class="btn btn-primary btn-block my-2" (click)="changeType('login')">
+            Volver
+          </button>
+            </div>
+
+            <button type="submit" class="btn btn-light btn-block my-2" *ngIf="isLogin && !isPasswordReset" (click)="changeType('reset')">
+              ¿Olvidaste tu contraseña?
+            </button>
+
+
+            <div class="form-group" [ngClass]="email.valid ? 'success' : 'error'">
+                <input class="form-control" formControlName="email" type="email" placeholder="Email" autocomplete="off" />
+
+                <div class="alert alert-danger mt-2" role="alert" *ngIf="email.invalid && email.dirty">
+                    Debes introducir un correo electrónico válido
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="email.valid ? 'success' : 'error'" *ngIf="!isPasswordReset">
+                <input class="form-control" formControlName="password" type="password" placeholder="Password" autocomplete="off" />
+
+                <div class="alert alert-danger mt-2" role="alert" *ngIf="password.invalid && password.dirty">
+                    La contraseña debe tener al menos 6 caracteres
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="passwordDoesMatch ? 'success' : 'error'" *ngIf="isSignup">
+                <input class="form-control" formControlName="passwordConfirm" type="password" placeholder="Confirm password" autocomplete="off" />
+
+                <div class="alert alert-danger mt-2" *ngIf="passwordConfirm.dirty && !passwordDoesMatch">
+                    Las contraseñas no coinciden
+                </div>
+            </div>
+
+            <div class="alert alert-danger" *ngIf="serverMessage">
+                {{ serverMessage }}
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block my-2" *ngIf="isPasswordReset" [disabled]="loading">
+              Reestablecer correo electrónico
+            </button>
+
+            <button type="submit" class="btn btn-primary btn-block my-2" *ngIf="!isPasswordReset" [disabled]="loginForm.invalid || !passwordDoesMatch || loading">
+            Acceder
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

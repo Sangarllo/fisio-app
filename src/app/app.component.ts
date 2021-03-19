@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,7 +11,10 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   item$: Observable<any[]>;
-  constructor(firestore: AngularFirestore) {
+  constructor(
+    public afAuth: AngularFireAuth,
+    firestore: AngularFirestore
+  ) {
     this.item$ = firestore.collection('items').valueChanges();
   }
 }

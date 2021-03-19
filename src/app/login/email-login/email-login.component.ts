@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AuditType } from '@models/audit';
-import { AuditService } from '@services/audit.service';
 
 @Component({
   selector: 'app-email-login',
@@ -11,7 +9,7 @@ import { AuditService } from '@services/audit.service';
   styleUrls: ['./email-login.component.scss']
 })
 export class EmailLoginComponent implements OnInit {
-  form: FormGroup;
+  loginForm: FormGroup;
 
   type: 'login' | 'signup' | 'reset' = 'login';
   loading = false;
@@ -22,12 +20,11 @@ export class EmailLoginComponent implements OnInit {
     private afAuth: AngularFireAuth,
     private fb: FormBuilder,
     private router: Router,
-    private auditSrv: AuditService
   ) {
   }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -55,17 +52,17 @@ export class EmailLoginComponent implements OnInit {
 
   // eslint-disable-next-line
   get email() {
-    return this.form.get('email');
+    return this.loginForm.get('email');
   }
 
   // eslint-disable-next-line
   get password() {
-    return this.form.get('password');
+    return this.loginForm.get('password');
   }
 
   // eslint-disable-next-line
   get passwordConfirm() {
-    return this.form.get('passwordConfirm');
+    return this.loginForm.get('passwordConfirm');
   }
 
   get passwordDoesMatch(): boolean {
@@ -80,6 +77,9 @@ export class EmailLoginComponent implements OnInit {
   async onSubmit() {
     this.loading = true;
 
+    console.log(`onSubmit()`);
+    console.log(`isPasswordReset: ${this.isPasswordReset}`);
+
     const email = this.email.value;
     const password = this.password.value;
 
@@ -89,8 +89,7 @@ export class EmailLoginComponent implements OnInit {
         if ( this.afAuth.user ) {
           const currentUser = await this.afAuth.currentUser;
           const desc = `${currentUser.displayName} (${currentUser.email})`;
-          this.auditSrv.addAuditItem(AuditType.LOGIN_EMAIL, currentUser, desc);
-          this.router.navigate([`admin`]);
+          this.router.navigate([`home`]);
         }
       }
       if (this.isSignup) {

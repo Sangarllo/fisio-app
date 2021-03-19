@@ -1,4 +1,4 @@
-<div class="container mt-3 mb-3">
+<div class="container mt-3 mb-3 text-center">
     <img src="assets/images/foto-consulta.jpg" class="img-fluid" alt="'Centro de Dietética, Nutrición y Fisioterapia Soraya">
 </div>
 
@@ -12,8 +12,18 @@
         <i class="bi-instagram " style="font-size: 4rem; color:#bc2a8d; "></i>
     </a>
     &nbsp;&nbsp;
-    <a href="login">
-        <i class="bi-person-circle " style="font-size: 4rem; color:#c9ef26; "></i>
-    </a>
+    <span *ngIf="afAuth.authState | async as user; else noAuthTemplate">
+      <!--
+      <a (click)="afAuth.signOut()">
+        <i class="bi-sunset-fill " style="font-size: 4rem; color:gray; "></i>
+      </a>
+      -->
+    </span>
 
 </div>
+
+<ng-template #noAuthTemplate>
+    <a routerLink="/login">
+        <i class="bi-person-circle " style="font-size: 4rem; color:#c9ef26; "></i>
+    </a>
+</ng-template>

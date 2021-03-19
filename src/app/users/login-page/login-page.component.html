@@ -8,6 +8,7 @@
 
 
 <ng-template #noAuthTemplate>
+
     <div *ngIf="!(afAuth.authState | async)" class="section-wrapper">
         <app-email-login></app-email-login>
     </div>

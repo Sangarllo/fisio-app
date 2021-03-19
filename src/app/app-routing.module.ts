@@ -24,6 +24,7 @@ const routes: Routes = [
     path: 'consultas',
     loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule)
   },
+  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   {
     path        : '**',
     pathMatch   : 'full',
