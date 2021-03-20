@@ -1,9 +1,10 @@
 export interface IUser {
   uid: string;
-  email: string;
   active: boolean;
   name: string;
   surname: string;
+  email: string;
+  telephone: string;
   address: string;
   locality: string;
   birthdate: string;
@@ -17,9 +18,10 @@ export class User implements IUser {
   constructor(
     public uid: string,
     public active: boolean,
-    public email: string,
     public name: string,
     public surname: string,
+    public email: string,
+    public telephone: string,
     public address: string,
     public locality: string,
     public birthdate: string,
@@ -37,6 +39,7 @@ export class User implements IUser {
     return new User(
       '0',
       true,
+      '',
       '',
       '',
       '',

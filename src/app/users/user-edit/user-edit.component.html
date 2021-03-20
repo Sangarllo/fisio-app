@@ -5,47 +5,69 @@
 <div class="container">
     <form [formGroup]="userForm">
 
+        <!--
         <div class="form-group">
             <label for="uid">uid</label>
             <input type="text" formControlName="uid" class="form-control" placeholder="Identificador" />
         </div>
+        -->
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+        <div class="row">
+            <div class="form-group col-12 col-md-6">
+                <label for="name">Nombre</label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Nombre" />
+            </div>
+
+            <div class="form-group col-12 col-md-6">
+                <label for="surname">Apellidos</label>
+                <input type="text" formControlName="surname" class="form-control" placeholder="Apellidos" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" formControlName="name" class="form-control" placeholder="Nombre" />
+        <div class="row">
+            <div class="form-group col-12 col-md-6">
+                <label for="email">Email</label>
+                <input type="text" formControlName="email" class="form-control" placeholder="Email" />
+            </div>
+
+            <div class="form-group col-12 col-md-6">
+                <label for="telephone">Teléfono</label>
+                <input type="text" formControlName="telephone" class="form-control" placeholder="Teléfono" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="surname">Apellidos</label>
-            <input type="text" formControlName="surname" class="form-control" placeholder="Apellidos" />
+        <div class="row">
+            <div class="form-group col-12 col-md-6">
+                <label for="address">Dirección</label>
+                <input type="text" formControlName="address" class="form-control" placeholder="Dirección" />
+            </div>
+
+            <div class="form-group col-12 col-md-6">
+                <label for="locality">Localidad</label>
+                <input type="text" formControlName="locality" class="form-control" placeholder="Localidad" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="address">Dirección</label>
-            <input type="text" formControlName="address" class="form-control" placeholder="Dirección" />
+        <div class="row">
+            <div class="form-group col-12 col-md-6">
+                <label for="birthdate">Nacimiento</label>
+                <input type="text" formControlName="birthdate" class="form-control" placeholder="Nacimiento" />
+            </div>
+
+            <div class="form-group col-12 col-md-6">
+                <label for="occupation">Profesión</label>
+                <input type="text" formControlName="occupation" class="form-control" placeholder="Profesión" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="locality">Localidad</label>
-            <input type="text" formControlName="locality" class="form-control" placeholder="Localidad" />
-        </div>
-
-        <div class="form-group">
-            <label for="birthdate">Nacimiento</label>
-            <input type="text" formControlName="birthdate" class="form-control" placeholder="Nacimiento" />
-        </div>
-
-        <div class="form-group">
-            <label for="occupation">Profesión</label>
-            <input type="text" formControlName="occupation" class="form-control" placeholder="Profesión" />
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
+            </div>
         </div>
 
     </form>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
+    <br/><br/>
+
 </div>

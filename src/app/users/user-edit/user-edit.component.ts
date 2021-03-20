@@ -19,7 +19,7 @@ export class UserEditComponent implements OnInit {
 
   userForm!: FormGroup;
   submitted = false;
-  pageTitle = 'Creación de un nuevo usuario';
+  pageTitle = 'Nuevo usuario';
   btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -44,10 +44,11 @@ export class UserEditComponent implements OnInit {
     this.userForm = this.fb.group({
       uid: [{value: '0', disabled: true}],
       active: true,
-      email: ['', [Validators.required,
+      email: ['', [
         Validators.email,
         Validators.minLength(3),
         Validators.maxLength(50)]],
+      telephone: [''],
       name: ['', [Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)]],
@@ -107,11 +108,11 @@ export class UserEditComponent implements OnInit {
     console.log(`uid asked ${uidUser}`);
 
     if ( uidUser === '0' ) {
-      this.pageTitle = 'Creación de un nuevo usuario';
-      this.btnText = 'Crear nuevo';
+      this.pageTitle = 'Nuevo usuario';
+      this.btnText = 'Crear';
       this.user = User.InitDefault();
     } else {
-      this.btnText = 'Actualizar datos';
+      this.btnText = 'Actualizar';
       this.usersSrv.getOneUser(uidUser)
       .subscribe({
         next: (user: IUser | undefined) => {
@@ -134,9 +135,9 @@ export class UserEditComponent implements OnInit {
     }
 
     if (this.user.uid === '0') {
-      this.pageTitle = 'Creando un nuevo usuario';
+      this.pageTitle = 'Nuevo usuario';
     } else {
-      this.pageTitle = `Editando los datos de ${this.user.name} ${this.user.surname}`;
+      this.pageTitle = `Actualizar datos`;
     }
 
     // Update the data on the form
@@ -144,6 +145,7 @@ export class UserEditComponent implements OnInit {
       uid: this.user.uid,
       active: this.user.active,
       email: this.user.email,
+      telephone: this.user.telephone,
       name: this.user.name,
       surname: this.user.surname,
       address: this.user.address,
