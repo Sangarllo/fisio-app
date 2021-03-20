@@ -38,11 +38,9 @@ export class SessionsComponent {
     });
   }
 
-
-
-  public gotoSession(session: ISession): void {
-    this.router.navigate([`usuarios/${session.userId}/consultas/${session.id}`]);
-  }
+  // public gotoSession(session: ISession): void {
+  //   this.router.navigate([`usuarios/${session.userId}/consultas/${session.id}`]);
+  // }
 
   public editSession(session: ISession): void {
     this.router.navigate([`usuarios/${session.userId}/consultas/${session.id}/editar`]);

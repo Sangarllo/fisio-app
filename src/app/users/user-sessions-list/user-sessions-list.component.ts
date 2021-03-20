@@ -45,10 +45,9 @@ export class UserSessionsListComponent {
     this.router.navigate([`usuarios/${this.uidUser}/consultas/0/editar`]);
   }
 
-
-  public gotoSession(session: ISession): void {
-    this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}`]);
-  }
+  // public gotoSession(session: ISession): void {
+  //   this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}`]);
+  // }
 
   public editSession(session: ISession): void {
     this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}/editar`]);

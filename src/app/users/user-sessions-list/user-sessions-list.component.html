@@ -21,8 +21,6 @@
             </div>
         </form>
 
-        <br/>
-
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -42,9 +40,11 @@
                     <td>{{ session.date }}</td>
                     <td>{{ session.symptoms }}</td>
                     <td>
+                        <!--
                         <a (click)="gotoSession(session)">
                             <i class="bi-arrow-right-square text-info"></i>
                         </a>&nbsp;&nbsp;
+                        -->
                         <a (click)="editSession(session)">
                             <i class="bi-pencil-square text-success"></i>
                         </a>&nbsp;&nbsp;
