@@ -58,6 +58,7 @@ export class UsersService {
 
   updateUser(user: IUser): void {
     const uidUser = user.uid;
+    console.log(`update User: ${JSON.stringify(user)}`);
     this.userDoc = this.afs.doc<IUser>(`${USERS_COLLECTION}/${uidUser}`);
     this.userDoc.update(user);
   }

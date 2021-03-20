@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
@@ -17,7 +17,7 @@ import { UsersService } from '@services/user.service';
   styleUrls: ['./users.component.scss'],
   providers: [DecimalPipe]
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
 
   public users: IUser[];
   users$: Observable<IUser[]>;
@@ -36,9 +36,6 @@ export class UsersComponent implements OnInit {
         map(text => this.search(text, pipe))
     );
     });
-  }
-
-  ngOnInit(): void {
   }
 
   public gotoNewUser(): void {

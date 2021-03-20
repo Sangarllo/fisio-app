@@ -5,17 +5,25 @@
 <div class="container">
     <form [formGroup]="sessionForm">
 
+        <!--
         <div class="form-group">
             <label for="id">id</label>
             <input type="text" formControlName="id" class="form-control" placeholder="Identificador" />
         </div>
+        -->
 
+        <!--
         <div class="form-group" *ngIf="user$ | async as user">
             <label for="userId">User Id</label>
             <input type="text" formControlName="id" class="form-control" placeholder="Identificador Usuario" />
             <span *ngIf="user$ | async as user">
               {{ user.name }} {{ user.surname }}
             </span>
+        </div>
+        -->
+
+        <div class="form-group" *ngIf="userName">
+            <input type="text" class="form-control" [value]="userName" disabled />
         </div>
 
         <div class="form-group">
@@ -28,7 +36,13 @@
             <textarea formControlName="symptoms" class="form-control" placeholder="Síntomas"></textarea>
         </div>
 
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!sessionForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
+            </div>
+        </div>
+
+
     </form>
 
-    <button type="submit" class="btn btn-primary" [disabled]="!sessionForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
 </div>

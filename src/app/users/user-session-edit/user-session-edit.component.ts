@@ -20,11 +20,11 @@ export class UserSessionEditComponent implements OnInit {
 
   sessionForm!: FormGroup;
   submitted = false;
-  pageTitle = 'Creación de una consulta';
+  pageTitle = 'Nueva consulta';
   btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
-  user$: Observable<IUser>;
+  userName: string;
 
   public uidUser: string;
   public user!: IUser | undefined;
@@ -46,7 +46,11 @@ export class UserSessionEditComponent implements OnInit {
       console.log(`id asked ${idSession}`);
       console.log(`uid asked ${this.uidUser}`);
       if ( this.uidUser ) {
-        this.user$ = this.usersSrv.getOneUser(this.uidUser);
+        this.usersSrv.getOneUser(this.uidUser)
+          .subscribe(
+            (user: IUser) => {
+              this.userName = `${user.name} ${user.surname}`
+            })
         this.getDetails(idSession, this.uidUser);
       }
     }
@@ -106,11 +110,11 @@ export class UserSessionEditComponent implements OnInit {
     console.log(`id asked ${idSession}`);
 
     if ( idSession === '0' ) {
-      this.pageTitle = 'Creación de una nueva consulta';
-      this.btnText = 'Crear nueva';
+      this.pageTitle = 'Nueva consulta';
+      this.btnText = 'Crear';
       this.session = Session.InitDefault(uidUser);
     } else {
-      this.btnText = 'Actualizar datos';
+      this.btnText = 'Actualizar';
       this.sessionsSrv.getOneSession(idSession)
       .subscribe({
         next: (session: ISession | undefined) => {
@@ -133,9 +137,9 @@ export class UserSessionEditComponent implements OnInit {
     }
 
     if (this.session.id === '0') {
-      this.pageTitle = 'Creando una nueva consulta';
+      this.pageTitle = 'Nueva consulta';
     } else {
-      this.pageTitle = `Editando los datos de esta consulta`;
+      this.pageTitle = `Edición de consulta`;
     }
 
     // Update the data on the form

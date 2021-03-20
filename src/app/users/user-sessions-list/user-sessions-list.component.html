@@ -2,36 +2,60 @@
 
     <h3 class="text-center">Listado de Sessiones</h3>
 
-    <button type="button" class="btn btn-primary" (click)="gotoNewSession()">Nueva Consulta</button>&nbsp;
+    <div class="container">
 
-    <br/><br/>
+        <form>
+            <div class="form-group form-inline">
+                <button class="btn btn-primary m-3" (click)="gotoNewSession()">
+                  <i class="bi-person-plus-fill"></i>&nbsp;Nueva Consulta
+              </button>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Id</th>
-                <th scope="col">Active</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Síntomas</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let session of sessions$ | async as sessions; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>{{ session.id }}</td>
-                <td>{{ session.active }}</td>
-                <td>{{ session.date }}</td>
-                <td>{{ session.symptoms }}</td>
-                <td>
-                    <button type="button" class="btn btn-primary" (click)="gotoSession(session)">Ver</button>&nbsp;
-                    <button type="button" class="btn btn-success" (click)="editSession(session)">Editar</button>&nbsp;
-                    <button type="button" class="btn btn-danger" (click)="deleteSession(session)">Borrar</button>
-                </td>
+                <div class="input-group">
+                    <input class="form-control border-right-0" type="text" [formControl]="filter">
+                    <span class="input-group-append bg-white border-left-0">
+                  <span class="input-group-text bg-transparent">
+                    <i class="bi-search text-primary"></i>
+                  </span>
+                    </span>
+                </div>
+            </div>
+        </form>
 
-            </tr>
-        </tbody>
-    </table>
+        <br/>
 
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <!--<th scope="col">Id</th>-->
+                    <!--<th scope="col">Active</th>-->
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Síntomas</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let session of sessions$ | async as sessions; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <!--<td>{{ session.id }}</td>-->
+                    <!--<td>{{ session.active }}</td>-->
+                    <td>{{ session.date }}</td>
+                    <td>{{ session.symptoms }}</td>
+                    <td>
+                        <a (click)="gotoSession(session)">
+                            <i class="bi-arrow-right-square text-info"></i>
+                        </a>&nbsp;&nbsp;
+                        <a (click)="editSession(session)">
+                            <i class="bi-pencil-square text-success"></i>
+                        </a>&nbsp;&nbsp;
+                        <a (click)="deleteSession(session)">
+                            <i class="bi-trash text-danger"></i>
+                        </a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 </div>

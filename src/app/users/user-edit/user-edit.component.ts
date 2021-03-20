@@ -78,6 +78,7 @@ export class UserEditComponent implements OnInit {
         if (userItem.uid === '0') {
           this.usersSrv.addUser(userItem);
         } else {
+          console.log(`editando`);
           this.usersSrv.updateUser(userItem);
         }
 

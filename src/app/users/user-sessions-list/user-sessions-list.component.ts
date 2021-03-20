@@ -1,8 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, PipeTransform } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { DecimalPipe } from '@angular/common';
 
-import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 import { SessionsService } from '@services/session.service';
 import { ISession } from '@models/session';
@@ -10,24 +13,32 @@ import { ISession } from '@models/session';
 @Component({
   selector: 'sh-user-sessions-list',
   templateUrl: './user-sessions-list.component.html',
-  styleUrls: ['./user-sessions-list.component.scss']
+  styleUrls: ['./user-sessions-list.component.scss'],
+  providers: [DecimalPipe]
 })
-export class UserSessionsListComponent implements OnInit {
+export class UserSessionsListComponent {
 
   public uidUser;
+  public sessions: ISession[];
   public sessions$: Observable<ISession[]>;
+  filter = new FormControl('');
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private sessionsSrv: SessionsService,
+    pipe: DecimalPipe,
   ) {
-  }
-
-  ngOnInit(): void {
     this.uidUser = this.route.snapshot.paramMap.get('uid');
     console.log(`userId: ${this.uidUser}`);
-    this.sessions$ = this.sessionsSrv.getAllSessionsFromUser(this.uidUser);
+    this.sessionsSrv.getAllSessionsFromUser(this.uidUser)
+    .subscribe( (sessions: ISession[]) => {
+      this.sessions = sessions;
+      this.sessions$ = this.filter.valueChanges.pipe(
+        startWith(''),
+        map(text => this.search(text, pipe))
+    );
+    });
   }
 
   public gotoNewSession(): void {
@@ -63,5 +74,15 @@ export class UserSessionsListComponent implements OnInit {
         );
       }
     });
+  }
+
+  private search(text: string, pipe: PipeTransform): ISession[] {
+    return this.sessions.filter(session => {
+      const term = text.toLowerCase();
+      return session.date.toLowerCase().includes(term)
+          || session.symptoms.toLowerCase().includes(term);
+    });
+
+    // || pipe.transform(user.email).includes(term);
   }
 }
