@@ -9,6 +9,7 @@ export interface IUser {
   locality: string;
   birthdate: string;
   occupation?: string;
+  notes?: string;
 }
 
 export class User implements IUser {
@@ -25,7 +26,8 @@ export class User implements IUser {
     public address: string,
     public locality: string,
     public birthdate: string,
-    public occupation?: string
+    public occupation?: string,
+    public notes?: string
      ) {
   }
 
@@ -46,6 +48,7 @@ export class User implements IUser {
       '',
       '',
       todayStr,
+      '',
       '',
     );
   }

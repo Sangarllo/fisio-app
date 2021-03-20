@@ -9,7 +9,18 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <div class="card-text my-3">
+                    <div *ngIf="user.email">
+                        <a><i class="bi-envelope" style="font-size: 1rem;color:gray;" ></i></a> {{ user.email }}
+                    </div>
+                    <div *ngIf="user.telephone">
+                        <a><i class="bi-telephone" style="font-size: 1rem;color:gray;" ></i></a> {{ user.telephone }}
+                    </div>
+                    <div *ngIf="user.notes">
+                        <a><i class="bi-pencil-square" style="font-size: 1rem;color:gray;" ></i></a> {{ user.notes }}
+                    </div>
+
+                </div>
 
                 <button type="button" class="btn btn-success" (click)="editUser()">Editar Datos</button>&nbsp;
             </div>

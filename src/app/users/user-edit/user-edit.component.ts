@@ -58,7 +58,8 @@ export class UserEditComponent implements OnInit {
       address: [''],
       locality: [''],
       birthdate: [''],
-      occupation: ['']
+      occupation: [''],
+      notes: [''],
     });
   }
 
@@ -152,6 +153,7 @@ export class UserEditComponent implements OnInit {
       locality: this.user.locality,
       birthdate: this.user.birthdate,
       occupation: this.user.occupation,
+      notes: this.user.notes,
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation

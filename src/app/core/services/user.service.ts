@@ -80,13 +80,15 @@ export class UsersService {
     const data: IUser = {
       uid: user.uid,
       active: user.active ?? true,
-      email: user.email,
       name: user.name,
       surname: user.surname,
+      email: user.email,
+      telephone: user.telephone,
       address: user.address,
       locality: user.locality,
       birthdate: user.birthdate,
       occupation: user.occupation,
+      notes: user.notes,
     };
 
     // console.log(`updateUserData 2: ${JSON.stringify(data)}`);

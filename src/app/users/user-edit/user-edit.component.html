@@ -61,6 +61,13 @@
         </div>
 
         <div class="row">
+            <div class="form-group  col-12">
+                <label for="notes">Notas</label>
+                <textarea formControlName="notes" class="form-control" placeholder="Notas"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col text-center">
                 <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
             </div>
