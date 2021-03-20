@@ -51,26 +51,31 @@ export class UsersComponent {
     this.router.navigate([`usuarios/${user.uid}/editar`]);
   }
 
-  public deleteUser(user: IUser): void {
+  public disableUser(user: IUser): void {
     console.log(`deleting ${user.uid}`);
     Swal.fire({
       title: '¿Estás seguro?',
-      text: 'No podrás deshacer esta acción de borrado!',
+      text: 'No podrás pasar consulta mientras esté deshabilitado',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, bórralo!'
+      confirmButtonText: '¡Sí, deshabilitar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usersSrv.deleteUser(user);
+        this.usersSrv.enableUser(user, false);
         Swal.fire(
-          '¡Borrado!',
-          `${user.name} ha sido borrado`,
+          '¡Deshabilitado!',
+          `${user.name} ha sido eliminado`,
           'success'
         );
       }
     });
+  }
+
+  public enableUser(user: IUser): void {
+    console.log(`enabling ${user.uid}`);
+    this.usersSrv.enableUser(user, true);
   }
 
   private search(text: string, pipe: PipeTransform): IUser[] {

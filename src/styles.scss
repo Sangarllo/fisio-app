@@ -14,3 +14,12 @@ a:hover {
     height: 100px !important;
     padding: 20px !important;
 }
+
+tr.disabled-row {
+    background-color: lightgrey;
+    color: darkgray;
+}
+
+.table {
+    margin-bottom: 60px !important;
+}

@@ -55,11 +55,15 @@ export class UserSessionEditComponent implements OnInit {
       }
     }
 
+    const today = new Date();
+    today.setUTCHours(0, 0, 0, 0);
+    const todayStr = today.toISOString().substr(0, 10);
+
     this.sessionForm = this.fb.group({
       id: [{value: '0', disabled: true}],
       active: true,
       userId: this.uidUser,
-      date: ['', Validators.required],
+      date: [todayStr, Validators.required],
       symptoms: ['', Validators.required]
     });
   }

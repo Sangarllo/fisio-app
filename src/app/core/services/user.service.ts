@@ -63,11 +63,17 @@ export class UsersService {
     this.userDoc.update(user);
   }
 
-  deleteUser(user: IUser): void {
+  enableUser(user: IUser, active: boolean): void {
     const uidUser = user.uid;
-    user.active = false;
+    user.active = active;
     this.userDoc = this.afs.doc<IUser>(`${USERS_COLLECTION}/${uidUser}`);
     this.userDoc.update(user);
+  }
+
+  removeUser(user: IUser): void {
+    const uidUser = user.uid;
+    this.userDoc = this.afs.doc<IUser>(`${USERS_COLLECTION}/${uidUser}`);
+    this.userDoc.delete();
   }
 
   updateUserData(user: any): Promise<any> {

@@ -129,7 +129,6 @@ export class UserEditComponent implements OnInit {
     }
   }
 
-
   private displayUser(): void {
 
     if (this.userForm) {
@@ -161,8 +160,28 @@ export class UserEditComponent implements OnInit {
     this.userForm.controls['uid'].setValue(this.user.uid);
   }
 
-
   // convenience getter for easy access to form fields
   get f() { return this.userForm.controls; }
 
+  public enableUser(user: IUser): void {
+    console.log(`enabling ${user.uid}`);
+    this.usersSrv.enableUser(user, true);
+  }
+
+  public disableUser(user: IUser): void {
+    console.log(`disabling ${user.uid}`);
+    this.usersSrv.enableUser(user, false);
+  }
+
+  public removeUser(user: IUser): void {
+    console.log(`deleting ${user.uid}`);
+    this.usersSrv.removeUser(user);
+    Swal.fire({
+      icon: 'success',
+      title: 'Usuario borrado',
+      text: `Los datos de ${user.name} y sus consultas han sido eliminados totalmente`,
+      // footer: '<a href>Why do I have this issue?</a>'
+    });
+    this.router.navigate([`/${User.PATH_URL}`]);
+  }
 }

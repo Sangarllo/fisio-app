@@ -1,12 +1,12 @@
 <div class="container mt-3">
 
-    <h3 class="text-center">Listado de Sessiones</h3>
+    <h3 class="text-center">Listado de Consultas</h3>
 
     <div class="container">
 
         <form>
             <div class="form-group form-inline">
-                <button class="btn btn-primary m-3" (click)="gotoNewSession()">
+                <button *ngIf="user.active; else disabledTemplate" class="btn btn-primary m-3" (click)="gotoNewSession()">
                   <i class="bi-person-plus-fill"></i>&nbsp;Nueva Consulta
               </button>
 
@@ -46,11 +46,13 @@
                         </a>&nbsp;&nbsp;
                         -->
                         <a (click)="editSession(session)">
-                            <i class="bi-pencil-square text-success"></i>
+                            <i class="bi-pencil text-primary"></i>
                         </a>&nbsp;&nbsp;
+                        <!--
                         <a (click)="deleteSession(session)">
-                            <i class="bi-trash text-danger"></i>
+                            <i class="bi-trash text-primary"></i>
                         </a>
+                        -->
                     </td>
 
                 </tr>
@@ -59,3 +61,9 @@
 
     </div>
 </div>
+
+<ng-template #disabledTemplate>
+    <div class="alert alert-danger mt-2 text-center" role="alert">
+        Este usuario aparece como inactivo. En este estado no puedes pasar consulta
+    </div>
+</ng-template>

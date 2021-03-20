@@ -1,4 +1,4 @@
-import { Component, PipeTransform } from '@angular/core';
+import { Component, Input, PipeTransform } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { DecimalPipe } from '@angular/common';
@@ -9,6 +9,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { SessionsService } from '@services/session.service';
 import { ISession } from '@models/session';
+import { IUser } from '@models/user';
 
 @Component({
   selector: 'sh-user-sessions-list',
@@ -18,6 +19,7 @@ import { ISession } from '@models/session';
 })
 export class UserSessionsListComponent {
 
+  @Input() user: IUser;
   public uidUser;
   public sessions: ISession[];
   public sessions$: Observable<ISession[]>;
@@ -30,6 +32,7 @@ export class UserSessionsListComponent {
     pipe: DecimalPipe,
   ) {
     this.uidUser = this.route.snapshot.paramMap.get('uid');
+    this.user = this.user;
     console.log(`userId: ${this.uidUser}`);
     this.sessionsSrv.getAllSessionsFromUser(this.uidUser)
     .subscribe( (sessions: ISession[]) => {
