@@ -21,10 +21,17 @@ const routes: Routes = [
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
   },
   {
-    path: 'consultas',
+    path: 'anamnesis',
+    loadChildren: () => import('./anamnesis/anamnesis.module').then(m => m.AnamnesisModule)
+  },
+  {
+    path: 'sesiones',
     loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule)
   },
-  { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
   {
     path        : '**',
     pathMatch   : 'full',

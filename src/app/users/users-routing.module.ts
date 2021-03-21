@@ -6,6 +6,7 @@ import { UsersComponent } from '@app/users/users.component';
 import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
 import { UserSessionEditComponent } from '@app/users/user-session-edit/user-session-edit.component';
+import { UserAnamnesisEditComponent } from '@app/users/user-anamnesis-edit/user-anamnesis-edit.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,11 @@ const routes: Routes = [
     component: UserEditComponent,
   },
   {
-    path: ':uid/consultas/:sessionId/editar',
+    path: ':uid/anamnesis/:anamnesisId/editar',
+    component: UserAnamnesisEditComponent,
+  },
+  {
+    path: ':uid/sesiones/:sessionId/editar',
     component: UserSessionEditComponent,
   }
 ];

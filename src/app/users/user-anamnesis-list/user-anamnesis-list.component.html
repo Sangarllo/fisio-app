@@ -1,13 +1,13 @@
 <div class="container mt-3">
 
-    <h3 class="text-center">Listado de Sesiones</h3>
+    <h3 class="text-center">Listado de Anamnesis</h3>
 
     <div class="container">
 
         <form>
             <div class="form-group form-inline">
-                <button *ngIf="user.active; else disabledTemplate" class="btn btn-primary m-3" (click)="gotoNewSession()">
-                  <i class="bi-person-plus-fill"></i>&nbsp;Nueva Sesión
+                <button *ngIf="user.active; else disabledTemplate" class="btn btn-primary m-3" (click)="gotoNewAnamnesisItem()">
+                  <i class="bi-person-plus-fill"></i>&nbsp;Nueva Anamnesis
               </button>
 
                 <div class="input-group">
@@ -25,34 +25,20 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <!--<th scope="col">Id</th>-->
-                    <!--<th scope="col">Active</th>-->
                     <th scope="col">Fecha</th>
-                    <th scope="col">Síntomas</th>
+                    <th scope="col">Diagnóstico</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let session of sessions$ | async as sessions; index as i">
+                <tr *ngFor="let anamnesisItem of anamnesis$ | async as anamnesis; index as i">
                     <th scope="row">{{ i + 1 }}</th>
-                    <!--<td>{{ session.id }}</td>-->
-                    <!--<td>{{ session.active }}</td>-->
-                    <td>{{ session.date }}</td>
-                    <td>{{ session.symptoms }}</td>
+                    <td>{{ anamnesisItem.date }}</td>
+                    <td>{{ anamnesisItem.diagnosis }}</td>
                     <td>
-                        <!--
-                        <a (click)="gotoSession(session)">
-                            <i class="bi-arrow-right-square text-info"></i>
-                        </a>&nbsp;&nbsp;
-                        -->
-                        <a (click)="editSession(session)">
+                        <a (click)="editAnamnesisItem(anamnesisItem)">
                             <i class="bi-pencil text-primary"></i>
-                        </a>&nbsp;&nbsp;
-                        <!--
-                        <a (click)="deleteSession(session)">
-                            <i class="bi-trash text-primary"></i>
                         </a>
-                        -->
                     </td>
 
                 </tr>

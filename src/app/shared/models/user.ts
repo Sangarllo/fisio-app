@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface IUser {
   uid: string;
   active: boolean;
@@ -30,7 +31,6 @@ export class User implements IUser {
     public notes?: string
      ) {
   }
-
 
   static InitDefault(): User {
 

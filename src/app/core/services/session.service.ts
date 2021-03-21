@@ -59,7 +59,6 @@ export class SessionsService {
 
   // TODO When creating, perhaps existing as authenticated (check email)
   addSession(session: ISession): void {
-    console.log(`addUser!`);
     const idSession = this.afs.createId();
     session.id = idSession;
     this.sessionCollection.doc(session.id).set(session);

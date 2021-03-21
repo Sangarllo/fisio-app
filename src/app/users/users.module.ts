@@ -8,12 +8,16 @@ import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
 import { UserSessionEditComponent } from '@app/users/user-session-edit/user-session-edit.component';
 import { UserSessionsListComponent } from '@app/users/user-sessions-list/user-sessions-list.component';
+import { UserAnamnesisEditComponent } from '@app/users/user-anamnesis-edit/user-anamnesis-edit.component';
+import { UserAnamnesisListComponent } from '@app/users/user-anamnesis-list/user-anamnesis-list.component';
 
 @NgModule({
   declarations: [
     UsersComponent,
     UserViewComponent,
     UserEditComponent,
+    UserAnamnesisEditComponent,
+    UserAnamnesisListComponent,
     UserSessionEditComponent,
     UserSessionsListComponent,
   ],

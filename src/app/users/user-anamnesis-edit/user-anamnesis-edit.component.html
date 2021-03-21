@@ -1,0 +1,50 @@
+<div class="jumbotron">
+    <h1 class="text-center">{{ pageTitle }}</h1>
+</div>
+
+<div class="container">
+    <form [formGroup]="anamnesisForm">
+
+        <div class="form-group" *ngIf="userName">
+            <input type="text" class="form-control" [value]="userName" disabled />
+        </div>
+
+        <div class="form-group">
+            <label for="date">Fecha</label>
+            <input type="date" formControlName="date" class="form-control" placeholder="Fecha" />
+        </div>
+
+        <div class="form-group">
+            <label for="reason">Motivo</label>
+            <textarea formControlName="reason" class="form-control" placeholder="Motivo de la Consulta"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="diagnosis">Diagnóstico</label>
+            <textarea formControlName="diagnosis" class="form-control" placeholder="Diagnóstico"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="background">Antecedentes</label>
+            <textarea formControlName="background" class="form-control" placeholder="Antecedentes"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="performance">Actuación</label>
+            <textarea formControlName="performance" class="form-control" placeholder="Actuación"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="notes">Notas</label>
+            <textarea formControlName="notes" class="form-control" placeholder="Notas"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col text-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!anamnesisForm.valid" (click)="onSaveForm()">{{ btnText }}</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
