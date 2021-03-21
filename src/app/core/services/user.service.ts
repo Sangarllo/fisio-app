@@ -32,9 +32,7 @@ export class UsersService {
     return this.userCollection.valueChanges()
       .pipe(
         map((users) => users.map(
-          user => {
-            return { ...user };
-          }))
+          user => ({ ...user })))
       );
   }
 
@@ -42,9 +40,7 @@ export class UsersService {
     return this.userCollection.doc(uidUser)
       .valueChanges({ uidField: 'uid' })
       .pipe(
-        map(user => {
-          return { ...user };
-        })
+        map(user => ({ ...user }))
       );
   }
 

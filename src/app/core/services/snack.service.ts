@@ -18,6 +18,6 @@ export class SnackService {
       'Debes acceder como usuario registrado',
       'error'
     );
-    this.router.navigate(['/usuarios/login'])
+    this.router.navigate(['/usuarios/login']);
   }
 }

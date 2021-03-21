@@ -49,8 +49,8 @@ export class UserSessionEditComponent implements OnInit {
         this.usersSrv.getOneUser(this.uidUser)
           .subscribe(
             (user: IUser) => {
-              this.userName = `${user.name} ${user.surname}`
-            })
+              this.userName = `${user.name} ${user.surname}`;
+            });
         this.getDetails(idSession, this.uidUser);
       }
     }
@@ -156,8 +156,8 @@ export class UserSessionEditComponent implements OnInit {
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
-    this.sessionForm.controls['userId'].setValue(this.session.userId)
-    this.sessionForm.controls['id'].setValue(this.session.id);
+    this.sessionForm.controls['userId'].setValue(this.session.userId);
+    this.sessionForm.controls.id.setValue(this.session.id);
   }
 
 

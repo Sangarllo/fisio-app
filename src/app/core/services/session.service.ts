@@ -32,9 +32,7 @@ export class SessionsService {
     return this.sessionCollection.valueChanges()
       .pipe(
         map((sessions) => sessions.map(
-          session => {
-            return { ...session };
-          }))
+          session => ({ ...session })))
       );
   }
 
@@ -47,9 +45,7 @@ export class SessionsService {
     return this.sessionCollection.valueChanges()
       .pipe(
         map((sessions) => sessions.map(
-          session => {
-            return { ...session };
-          }))
+          session => ({ ...session })))
       );
   }
 
@@ -57,9 +53,7 @@ export class SessionsService {
     return this.sessionCollection.doc(idSession)
       .valueChanges({ uidField: 'id' })
       .pipe(
-        map(session => {
-          return { ...session };
-        })
+        map(session => ({ ...session }))
       );
   }
 
