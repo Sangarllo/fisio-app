@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
+import { SharedModule } from '@shared/shared.module';
 import { AnamnesisRoutingModule } from './anamnesis-routing.module';
 import { AnamnesisComponent } from './anamnesis.component';
 
@@ -8,7 +8,7 @@ import { AnamnesisComponent } from './anamnesis.component';
 @NgModule({
   declarations: [AnamnesisComponent],
   imports: [
-    CommonModule,
+    SharedModule,
     AnamnesisRoutingModule
   ]
 })

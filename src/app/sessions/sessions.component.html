@@ -1,9 +1,11 @@
-<div class="container mt-3">
-
+<div class="jumbotron">
     <h3 class="text-center">Listado de Sesiones</h3>
+</div>
+
+<div class="container">
 
     <form>
-        <div class="form-group form-inline">
+        <div class="form-group">
             <div class="input-group">
                 <input class="form-control border-right-0" type="text" [formControl]="filter">
                 <span class="input-group-append bg-white border-left-0">
@@ -15,12 +17,9 @@
         </div>
     </form>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <!--<th scope="col">#</th>-->
-                <!--<th scope="col">Id</th>-->
-                <!--<th scope="col">Active</th>-->
                 <th scope="col">Fecha</th>
                 <th scope="col">Síntomas</th>
                 <th scope="col"></th>
@@ -28,22 +27,17 @@
         </thead>
         <tbody>
             <tr *ngFor="let session of sessions$ | async as sessions; index as i">
-                <!--<th scope="row">{{ i + 1 }}</th>-->
-                <!--<td>{{ session.id }}</td>-->
-                <!--<td>{{ session.active }}</td>-->
-                <td>{{ session.date }}</td>
-                <td>{{ session.symptoms }}</td>
-                <td>
-                    <!--
-                    <a (click)="gotoSession(session)">
-                        <i class="bi-arrow-right-square text-info"></i>
-                    </a>&nbsp;&nbsp;
-                    -->
+                <td class="td-date" (click)="gotoSession(session)">{{ session.date }}</td>
+                <td (click)="gotoSession(session)">{{ session.symptoms }}</td>
+                <td class="buttons-3 float-right">
                     <a (click)="editSession(session)">
-                        <i class="bi-pencil-square text-success"></i>
-                    </a>&nbsp;&nbsp;
-                    <a (click)="deleteSession(session)">
-                        <i class="bi-trash text-danger"></i>
+                        <i class="bi-pencil-square text-primary"></i>
+                    </a>
+                    <a *ngIf="session.active" (click)="disableSession(session)">
+                        <i class="bi-person-dash text-primary"></i>
+                    </a>
+                    <a *ngIf="!session.active" (click)="enableSession(session)">
+                        <i class="bi-person-plus-fill text-primary"></i>
                     </a>
                 </td>
 

@@ -9,6 +9,7 @@ export interface IAnamnesisItem {
   background?: string; // antecedentes
   performance?: string; // actuación del fisioterapeuta
   notes?: string;
+  username?: string;
 }
 
 export class AnamnesisItem implements IAnamnesisItem {
@@ -25,6 +26,7 @@ export class AnamnesisItem implements IAnamnesisItem {
     public background?: string,
     public performance?: string,
     public notes?: string,
+    public username?: string,
      ) {
   }
 
