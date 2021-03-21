@@ -41,15 +41,18 @@
                 <!--<td>{{ user.active }}</td>-->
                 <td>{{ user.surname }}, {{ user.name }}</td>
                 <!--<td>{{ user.email }}</td>-->
-                <td style="min-width: 100px;" *ngIf="user.active; else disabledUserButtonsTemplate">
+                <td style="min-width: 100px;text-align:center">
                     <a (click)="gotoUser(user)">
                         <i class="bi-person-square text-primary"></i>
                     </a>&nbsp;&nbsp;
                     <a (click)="editUser(user)">
                         <i class="bi-pencil-square text-primary"></i>
                     </a>&nbsp;&nbsp;
-                    <a (click)="disableUser(user)">
+                    <a *ngIf="user.active" (click)="disableUser(user)">
                         <i class="bi-person-dash text-primary"></i>
+                    </a>
+                    <a *ngIf="!user.active" (click)="enableUser(user)">
+                        <i class="bi-person-plus-fill text-primary"></i>
                     </a>
                 </td>
             </tr>
@@ -57,17 +60,3 @@
     </table>
 
 </div>
-
-<ng-template #disabledUserButtonsTemplate>
-    <td style="min-width: 100px;">
-        <a (click)="gotoUser(user)">
-            <i class="bi-person-square text-primary"></i>
-        </a>&nbsp;&nbsp;
-        <a (click)="editUser(user)">
-            <i class="bi-pencil-square text-primary"></i>
-        </a>&nbsp;&nbsp;
-        <a (click)="enableUser(user)">
-            <i class="bi-person-plus-fill text-primary"></i>
-        </a>
-    </td>
-</ng-template>
