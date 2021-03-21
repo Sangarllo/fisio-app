@@ -5,8 +5,9 @@ import { AuthGuard } from '@app/users/auth.guard';
 import { UsersComponent } from '@app/users/users.component';
 import { UserViewComponent } from '@app/users/user-view/user-view.component';
 import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
-import { UserSessionEditComponent } from '@app/users/user-session-edit/user-session-edit.component';
 import { UserAnamnesisEditComponent } from '@app/users/user-anamnesis-edit/user-anamnesis-edit.component';
+import { UserAnamnesisViewComponent } from '@app/users/user-anamnesis-view/user-anamnesis-view.component';
+import { UserAnamnesisSessionEditComponent } from '@app/users/user-anamnesis-session-edit/user-anamnesis-session-edit.component';
 
 const routes: Routes = [
   {
@@ -23,12 +24,16 @@ const routes: Routes = [
     component: UserEditComponent,
   },
   {
+    path: ':uid/anamnesis/:anamnesisId',
+    component: UserAnamnesisViewComponent,
+  },
+  {
     path: ':uid/anamnesis/:anamnesisId/editar',
     component: UserAnamnesisEditComponent,
   },
   {
-    path: ':uid/sesiones/:sessionId/editar',
-    component: UserSessionEditComponent,
+    path: ':uid/anamnesis/:anamnesisId/sesiones/:sessionId/editar',
+    component: UserAnamnesisSessionEditComponent,
   }
 ];
 

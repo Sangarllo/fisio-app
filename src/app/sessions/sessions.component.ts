@@ -58,7 +58,7 @@ export class SessionsComponent {
       confirmButtonText: '¡Sí, bórrala!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.sessionsSrv.deleteSession(session);
+        this.sessionsSrv.enableSession(session, false);
         Swal.fire(
           '¡Borrado!',
           `${session.id} ha sido borrado`,

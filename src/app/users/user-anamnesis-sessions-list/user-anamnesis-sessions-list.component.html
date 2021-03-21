@@ -1,9 +1,9 @@
-<div class="container mt-3" *ngIf="sessions$ | async as sessions">
+<div class="container-fluid mt-3" *ngIf="sessions$ | async as sessions">
 
-    <h3 class="text-center">Todas sus sesiones</h3>
-    <h6 class="text-center" style="color:gray;text-transform: uppercase;">(#{{ sessions.length }}) cualquier anamnesis</h6>
+    <h3 class="text-center">Sesiones asociadas</h3>
+    <h6 class="text-center" style="color:gray;text-transform: uppercase;">(#{{ sessions.length }}) {{ anamnesisItem.diagnosis }}</h6>
 
-    <div class="container">
+    <div class="container-fluid" *ngIf="sessions.length > 0; else noSessionsTemplate">
 
         <form>
             <div class="form-group">
@@ -24,32 +24,36 @@
             </div>
         </form>
 
-        <table class="table table-striped" *ngIf="sessions.length > 0; else noSessionsTemplate">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">🌡️</th>
                     <!--<th scope="col">Id</th>-->
                     <!--<th scope="col">Active</th>-->
                     <th scope="col">Fecha</th>
-                    <th scope="col">Anamnesis</th>
                     <th scope="col">Síntomas</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let session of sessions; index as i">
-                    <th scope="row" style="text-align: right;">{{ session.painRank }}</th>
+                    <!--<th scope="row">{{ i + 1 }}</th>-->
+                    <th scope="row">{{ session.painRank }}</th>
                     <!--<td>{{ session.id }}</td>-->
                     <!--<td>{{ session.active }}</td>-->
                     <td>{{ session.date }}</td>
-                    <td>{{ session.anamnesisId }}</td>
                     <td>{{ session.symptoms }}</td>
-                    <td class="32 float-right">
+                    <td class="buttons-3 float-right">
+                        <!--
+                        <a (click)="gotoSession(session)">
+                            <i class="bi-arrow-right-square text-info"></i>
+                        </a>&nbsp;&nbsp;
+                        -->
                         <a (click)="editSession(session)">
                             <i class="bi-pencil text-primary"></i>
                         </a>&nbsp;&nbsp;
                         <a (click)="deleteSession(session)">
-                            <i class="bi-clipboard-x text-primary"></i>
+                            <i class="bi-calendar-minus text-primary"></i>
                         </a>
                     </td>
 
@@ -68,6 +72,6 @@
 
 <ng-template #noSessionsTemplate>
     <div class="alert alert-primary mt-4 text-center" role="alert">
-        No se han encontrado sesiones.
+        Aún no hay sesiones para este persona
     </div>
 </ng-template>

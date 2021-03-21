@@ -22,6 +22,21 @@ export class SessionsService {
     this.sessionCollection = afs.collection(SESSIONS_COLLECTION);
   }
 
+  getAllSessionsFromUserAndAnamnesis(userId: string, anamnesisId: string): Observable<ISession[]> {
+    this.sessionCollection = this.afs.collection<ISession>(
+      SESSIONS_COLLECTION,
+      ref => ref.where('userId', '==', userId)
+                .where('anamnesisId', '==', anamnesisId)
+                .orderBy('date')
+    );
+
+    return this.sessionCollection.valueChanges()
+      .pipe(
+        map((sessions) => sessions.map(
+          session => ({ ...session })))
+      );
+  }
+
   getAllSessionsFromUser(userId: string): Observable<ISession[]> {
     this.sessionCollection = this.afs.collection<ISession>(
       SESSIONS_COLLECTION,
@@ -58,10 +73,11 @@ export class SessionsService {
   }
 
   // TODO When creating, perhaps existing as authenticated (check email)
-  addSession(session: ISession): void {
+  addSession(session: ISession): string {
     const idSession = this.afs.createId();
     session.id = idSession;
     this.sessionCollection.doc(session.id).set(session);
+    return idSession;
   }
 
   updateSession(session: ISession): void {
@@ -70,10 +86,17 @@ export class SessionsService {
     this.sessionDoc.update(session);
   }
 
-  deleteSession(session: ISession): void {
+  enableSession(session: ISession, enable: boolean): void {
     const idSession = session.id;
-    session.active = false;
+    session.active = enable;
     this.sessionDoc = this.afs.doc<ISession>(`${SESSIONS_COLLECTION}/${idSession}`);
     this.sessionDoc.update(session);
   }
+
+  removeSession(session: ISession): void {
+    const idSession = session.id;
+    this.sessionDoc = this.afs.doc<ISession>(`${SESSIONS_COLLECTION}/${idSession}`);
+    this.sessionDoc.delete();
+  }
+
 }

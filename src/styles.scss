@@ -16,10 +16,24 @@ a:hover {
 }
 
 tr.disabled-row {
-    background-color: lightgrey;
-    color: darkgray;
+    background-color: indianred !important;
+    color: darkred;
+    .text-primary {
+        color: darkred !important;
+    }
 }
 
-.table {
+.table,
+.div-page {
     margin-bottom: 60px !important;
+}
+
+td.buttons-3 {
+    width: 100px;
+    max-width: 100px;
+    display: inline-block;
+    text-align: center;
+    a {
+        margin-right: 8px;
+    }
 }

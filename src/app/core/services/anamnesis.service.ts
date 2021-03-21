@@ -58,10 +58,11 @@ export class AnamnesisService {
   }
 
   // TODO When creating, perhaps existing as authenticated (check email)
-  addAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
+  addAnamnesisItem(anamnesisItem: IAnamnesisItem): string {
     const id = this.afs.createId();
     anamnesisItem.id = id;
     this.anamnesisCollection.doc(anamnesisItem.id).set(anamnesisItem);
+    return id;
   }
 
   updateAnamnesisItem(anamnesisItem: IAnamnesisItem): void {

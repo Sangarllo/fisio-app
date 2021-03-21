@@ -1,14 +1,14 @@
-<div class="container mt-3">
+<div class="container-fluid mt-3" *ngIf="anamnesis$ | async as anamnesis">
 
-    <h3 class="text-center">Listado de Anamnesis</h3>
+    <h3 class="text-center">Sus Anamnesis</h3>
 
-    <div class="container">
+    <div class="container" *ngIf="anamnesis.length > 0; else noAnamnesisTemplate">
 
         <form>
             <div class="form-group form-inline">
                 <button *ngIf="user.active; else disabledTemplate" class="btn btn-primary m-3" (click)="gotoNewAnamnesisItem()">
-                  <i class="bi-person-plus-fill"></i>&nbsp;Nueva Anamnesis
-              </button>
+                  <i class="bi-clipboard-plus"></i>&nbsp;Nueva
+                </button>
 
                 <div class="input-group">
                     <input class="form-control border-right-0" type="text" [formControl]="filter">
@@ -24,23 +24,25 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <!--<th scope="col">#</th>-->
                     <th scope="col">Fecha</th>
                     <th scope="col">Diagnóstico</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let anamnesisItem of anamnesis$ | async as anamnesis; index as i">
-                    <th scope="row">{{ i + 1 }}</th>
-                    <td>{{ anamnesisItem.date }}</td>
-                    <td>{{ anamnesisItem.diagnosis }}</td>
-                    <td>
+                <tr *ngFor="let anamnesisItem of anamnesis; index as i">
+                    <!--<th scope="row">{{ i + 1 }}</th>-->
+                    <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date }}</td>
+                    <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
+                    <td class="buttons-3 float-right">
                         <a (click)="editAnamnesisItem(anamnesisItem)">
                             <i class="bi-pencil text-primary"></i>
                         </a>
+                        <a (click)="removeAnamnesisItem(anamnesisItem)">
+                            <i class="bi-clipboard-x text-primary"></i>
+                        </a>
                     </td>
-
                 </tr>
             </tbody>
         </table>
@@ -50,6 +52,16 @@
 
 <ng-template #disabledTemplate>
     <div class="alert alert-danger mt-2 text-center" role="alert">
-        Este usuario aparece como inactivo. En este estado no puedes pasar consulta
+        Esta persona aparece como inactiva.
+    </div>
+</ng-template>
+
+<ng-template #noAnamnesisTemplate>
+    <div class="alert alert-primary mt-4 text-center" role="alert">
+        Aún no hay anamnesis para esta persona.
+        <hr/>
+        <button *ngIf="user.active; else disabledTemplate" class="btn btn-primary m-3" (click)="gotoNewAnamnesisItem()">
+        <i class="bi-clipboard-plus"></i>&nbsp;Crear
+    </button>
     </div>
 </ng-template>

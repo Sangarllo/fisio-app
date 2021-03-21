@@ -5,10 +5,16 @@
 <div class="container">
 
     <form>
-        <div class="form-group form-inline">
-            <button class="btn btn-primary m-3" (click)="gotoNewUser()">
-                <i class="bi-person-plus-fill"></i>&nbsp;Nueva Persona
+        <div class="form-group">
+            <button class="btn btn-primary mr-2 mb-3" (click)="gotoNewUser()">
+                <i class="bi-person-plus-fill"></i>&nbsp;Nueva
             </button>
+
+            <button class="btn btn-outline-primary mb-3" (click)="toggleActive()">
+              <i *ngIf="showDisabled" class="bi-toggle-on"></i>
+              <i *ngIf="!showDisabled" class="bi-toggle-off"></i>
+              &nbsp;{{ btnActive }}
+          </button>
 
             <div class="input-group">
                 <input class="form-control border-right-0" type="text" [formControl]="filter">
@@ -18,12 +24,13 @@
                 </span>
                 </span>
             </div>
+
         </div>
     </form>
 
     <br/>
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -39,15 +46,12 @@
                 <th scope="row">{{ i + 1 }}</th>
                 <!--<td>{{ user.uid }}</td>-->
                 <!--<td>{{ user.active }}</td>-->
-                <td>{{ user.surname }}, {{ user.name }}</td>
+                <td (click)="gotoUser(user)">{{ user.surname }}, {{ user.name }}</td>
                 <!--<td>{{ user.email }}</td>-->
-                <td style="min-width: 100px;text-align:center">
-                    <a (click)="gotoUser(user)">
-                        <i class="bi-person-square text-primary"></i>
-                    </a>&nbsp;&nbsp;
+                <td class="buttons-3 float-right">
                     <a (click)="editUser(user)">
                         <i class="bi-pencil-square text-primary"></i>
-                    </a>&nbsp;&nbsp;
+                    </a>
                     <a *ngIf="user.active" (click)="disableUser(user)">
                         <i class="bi-person-dash text-primary"></i>
                     </a>

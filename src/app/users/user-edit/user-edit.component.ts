@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,7 +20,7 @@ export class UserEditComponent implements OnInit {
 
   userForm!: FormGroup;
   submitted = false;
-  pageTitle = 'Nuevo usuario';
+  pageTitle = 'Nueva persona';
   btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
@@ -76,14 +77,12 @@ export class UserEditComponent implements OnInit {
         const userItem = { ...this.user, ...this.userForm.value };
 
         if (userItem.uid === '0') {
-          this.usersSrv.addUser(userItem);
+          const newId = this.usersSrv.addUser(userItem);          this.router.navigate([ `${User.PATH_URL}/${newId}`]);
         } else {
           console.log(`editando`);
           this.usersSrv.updateUser(userItem);
+          this.router.navigate([`${User.PATH_URL}/${userItem.id}`]);
         }
-
-        this.router.navigate([ User.PATH_URL]);
-
     } else {
       this.errorMessage = 'Por favor, corrige los mensajes de validación.';
     }
@@ -110,7 +109,7 @@ export class UserEditComponent implements OnInit {
     console.log(`uid asked ${uidUser}`);
 
     if ( uidUser === '0' ) {
-      this.pageTitle = 'Nuevo usuario';
+      this.pageTitle = 'Nueva persona';
       this.btnText = 'Crear';
       this.user = User.InitDefault();
     } else {
@@ -136,7 +135,7 @@ export class UserEditComponent implements OnInit {
     }
 
     if (this.user.uid === '0') {
-      this.pageTitle = 'Nuevo usuario';
+      this.pageTitle = 'Nueva persona';
     } else {
       this.pageTitle = `Actualizar datos`;
     }

@@ -1,9 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable @angular-eslint/component-selector */
-import { Component, Input, PipeTransform } from '@angular/core';
+import { Component, Input, OnInit, PipeTransform } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
@@ -12,18 +11,17 @@ import { map, startWith } from 'rxjs/operators';
 import { SessionsService } from '@services/session.service';
 import { ISession, Session } from '@models/session';
 import { IUser, User } from '@models/user';
-import { AnamnesisItem } from '@models/anamnesis-item';
+import { AnamnesisItem, IAnamnesisItem } from '@models/anamnesis-item';
 
 @Component({
-  selector: 'sh-user-sessions-list',
-  templateUrl: './user-sessions-list.component.html',
-  styleUrls: ['./user-sessions-list.component.scss'],
-  providers: [DecimalPipe]
+  selector: 'sh-user-anamnesis-sessions-list',
+  templateUrl: './user-anamnesis-sessions-list.component.html',
+  styleUrls: ['./user-anamnesis-sessions-list.component.scss']
 })
-export class UserSessionsListComponent {
+export class UserAnamnesisSessionsListComponent implements OnInit {
 
-  @Input() user: IUser;
-  public uidUser;
+  @Input() user: IUser = null;
+  @Input() anamnesisItem: IAnamnesisItem = null;
   public sessions: ISession[];
   public sessions$: Observable<ISession[]>;
   filter = new FormControl('');
@@ -31,32 +29,29 @@ export class UserSessionsListComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private sessionsSrv: SessionsService,
-    pipe: DecimalPipe,
+    private sessionsSrv: SessionsService
   ) {
-    this.uidUser = this.route.snapshot.paramMap.get('uid');
-    this.user = this.user;
-    console.log(`userId: ${this.uidUser}`);
-    this.sessionsSrv.getAllSessionsFromUser(this.uidUser)
+  }
+
+  ngOnInit(): void {
+    this.sessionsSrv.getAllSessionsFromUserAndAnamnesis(this.user?.uid, this.anamnesisItem?.id)
     .subscribe( (sessions: ISession[]) => {
       this.sessions = sessions;
       this.sessions$ = this.filter.valueChanges.pipe(
         startWith(''),
-        map(text => this.search(text, pipe))
+        map(text => this.search(text))
     );
     });
   }
 
+
   public gotoNewSession(): void {
-    this.router.navigate([`usuarios/${this.uidUser}/consultas/0/editar`]);
+    // eslint-disable-next-line max-len
+    this.router.navigate([`${User.PATH_URL}/${this.user.uid}/${AnamnesisItem.PATH_URL}/${this.anamnesisItem.id}/${Session.PATH_URL}/0/editar`]);
   }
 
-  // public gotoSession(session: ISession): void {
-  //   this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}`]);
-  // }
-
   public editSession(session: ISession): void {
-    this.router.navigate([`${User.PATH_URL}/${this.user.uid}/${AnamnesisItem.PATH_URL}/${session.anamnesisId}/${Session.PATH_URL}/${session.id}/editar`]);
+    this.router.navigate([`${User.PATH_URL}/${this.user.uid}/${AnamnesisItem.PATH_URL}/${this.anamnesisItem.id}//${Session.PATH_URL}/${session.id}/editar`]);
   }
 
   public deleteSession(session: ISession): void {
@@ -71,23 +66,22 @@ export class UserSessionsListComponent {
       confirmButtonText: '¡Sí, bórrala!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.sessionsSrv.removeSession(session);
+        this.sessionsSrv.enableSession(session, false);
         Swal.fire(
-          '¡Borrado!',
-          `${session.id} ha sido borrado`,
+          '¡Borrada!',
+          `Esta sesión ha sido borrada`,
           'success'
         );
       }
     });
   }
 
-  private search(text: string, pipe: PipeTransform): ISession[] {
+  private search(text: string): ISession[] {
     return this.sessions.filter(session => {
       const term = text.toLowerCase();
       return session.date.toLowerCase().includes(term)
-          || session.symptoms.toLowerCase().includes(term);
+      || session.symptoms.toLowerCase().includes(term)
+      || session.treatment.toLowerCase().includes(term);
     });
-
-    // || pipe.transform(user.email).includes(term);
   }
 }

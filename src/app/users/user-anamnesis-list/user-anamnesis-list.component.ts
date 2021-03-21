@@ -46,11 +46,15 @@ export class UserAnamnesisListComponent {
     this.router.navigate([`usuarios/${this.uidUser}/anamnesis/0/editar`]);
   }
 
+  public gotoAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
+    this.router.navigate([`usuarios/${this.uidUser}/anamnesis/${anamnesisItem.id}`]);
+  }
+
   public editAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
     this.router.navigate([`usuarios/${this.uidUser}/anamnesis/${anamnesisItem.id}/editar`]);
   }
 
-  public deleteAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
+  public removeAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
     console.log(`deleting ${anamnesisItem.id}`);
     Swal.fire({
       title: '¿Estás seguro?',

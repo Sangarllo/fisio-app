@@ -22,12 +22,21 @@ export class UsersService {
     this.userCollection = afs.collection(USERS_COLLECTION);
   }
 
-  getAllUsers(): Observable<IUser[]> {
-    this.userCollection = this.afs.collection<IUser>(
-      USERS_COLLECTION,
-      ref => ref.orderBy('surname')
-                .orderBy('name')
-    );
+  getAllUsers(showDisabled: boolean): Observable<IUser[]> {
+    if (showDisabled) {
+      this.userCollection = this.afs.collection<IUser>(
+        USERS_COLLECTION,
+        ref => ref.orderBy('surname')
+                  .orderBy('name')
+      );
+    } else {
+      this.userCollection = this.afs.collection<IUser>(
+        USERS_COLLECTION,
+        ref => ref.where('active', '==', true)
+                  .orderBy('surname')
+                  .orderBy('name')
+      );
+    }
 
     return this.userCollection.valueChanges()
       .pipe(
@@ -45,11 +54,12 @@ export class UsersService {
   }
 
   // TODO When creating, perhaps existing as authenticated (check email)
-  addUser(user: IUser): void {
+  addUser(user: IUser): string {
     console.log(`addUser!`);
     const uidUser = this.afs.createId();
     user.uid = uidUser;
     this.userCollection.doc(user.uid).set(user);
+    return uidUser;
   }
 
   updateUser(user: IUser): void {

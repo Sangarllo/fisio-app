@@ -2,7 +2,7 @@
     <h1 class="text-center">{{ pageTitle }}</h1>
 </div>
 
-<div class="container">
+<div class="container div-page">
     <form [formGroup]="sessionForm">
 
         <!--
@@ -22,8 +22,12 @@
         </div>
         -->
 
-        <div class="form-group" *ngIf="userName">
-            <input type="text" class="form-control" [value]="userName" disabled />
+        <div class="form-group" *ngIf="user$ | async as user">
+            <input type="text" class="form-control" [value]="(user.name) + ' ' + (user.surname)" disabled />
+        </div>
+
+        <div class="form-group" *ngIf="anamnesisItem$ | async as anamnesisItem">
+            <input type="text" class="form-control" [value]="'Anamnesis: ' + (anamnesisItem.diagnosis)" disabled />
         </div>
 
         <div class="form-group">
@@ -32,8 +36,19 @@
         </div>
 
         <div class="form-group">
+            <label for="painRank">Grado de Dolor</label>
+            <input type="number" formControlName="painRank" class="form-control" placeholder="Grado de Dolor" />
+        </div>
+
+
+        <div class="form-group">
             <label for="symptoms">Síntomas</label>
             <textarea formControlName="symptoms" class="form-control" placeholder="Síntomas"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="treatment">Tratamiento</label>
+            <textarea formControlName="treatment" class="form-control" placeholder="Tratamiento"></textarea>
         </div>
 
         <div class="row">

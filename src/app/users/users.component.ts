@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, PipeTransform } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { DecimalPipe } from '@angular/common';
 
 import Swal from 'sweetalert2';
 import { Observable } from 'rxjs';
@@ -10,32 +10,45 @@ import { map, startWith } from 'rxjs/operators';
 import { IUser } from '@models/user';
 import { UsersService } from '@services/user.service';
 
-
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
-  providers: [DecimalPipe]
 })
 export class UsersComponent {
 
   public users: IUser[];
+  public showDisabled = false;
+  btnActive = 'Ver Activos';
   users$: Observable<IUser[]>;
   filter = new FormControl('');
 
   constructor(
     private router: Router,
-    private usersSrv: UsersService,
-    pipe: DecimalPipe,
+    private usersSrv: UsersService
   ) {
-    this.usersSrv.getAllUsers()
+    this.refreshUsers();
+  }
+
+  private refreshUsers(): void {
+    this.usersSrv.getAllUsers(this.showDisabled)
     .subscribe( (users: IUser[]) => {
       this.users = users;
       this.users$ = this.filter.valueChanges.pipe(
         startWith(''),
-        map(text => this.search(text, pipe))
+        map(text => this.search(text))
     );
     });
+  }
+
+  public toggleActive() {
+    this.showDisabled = !this.showDisabled;
+    if ( this.showDisabled) {
+      this.btnActive = 'Mostrando Todos';
+    } else {
+      this.btnActive = 'Mostrando Activos';
+    }
+    this.refreshUsers();
   }
 
   public gotoNewUser(): void {
@@ -78,7 +91,7 @@ export class UsersComponent {
     this.usersSrv.enableUser(user, true);
   }
 
-  private search(text: string, pipe: PipeTransform): IUser[] {
+  private search(text: string): IUser[] {
     return this.users.filter(user => {
       const term = text.toLowerCase();
       return user.name.toLowerCase().includes(term)

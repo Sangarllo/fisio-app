@@ -65,7 +65,7 @@ export class UserAnamnesisEditComponent implements OnInit {
       userId: this.uidUser,
       date: [todayStr, Validators.required],
       reason: [''],
-      diagnosis: [''],
+      diagnosis: ['', Validators.required],
       background: [''],
       performance: [''],
       notes: ['']
@@ -85,12 +85,14 @@ export class UserAnamnesisEditComponent implements OnInit {
         const anamnesisItem = { ...this.anamnesisItem, ...this.anamnesisForm.value };
 
         if (anamnesisItem.id === '0') {
-          this.anamnesisSrv.addAnamnesisItem(anamnesisItem);
+          const newId = this.anamnesisSrv.addAnamnesisItem(anamnesisItem);
+          this.router.navigate([ `${User.PATH_URL}/${this.uidUser}/${AnamnesisItem.PATH_URL}/${newId}` ]);
+
         } else {
           this.anamnesisSrv.updateAnamnesisItem(anamnesisItem);
+          this.router.navigate([ `${User.PATH_URL}/${this.uidUser}/${AnamnesisItem.PATH_URL}/${this.anamnesisItem.id}` ]);
         }
 
-        this.router.navigate([ User.PATH_URL]);
 
     } else {
       this.errorMessage = 'Por favor, corrige los mensajes de validación.';
@@ -118,7 +120,7 @@ export class UserAnamnesisEditComponent implements OnInit {
     console.log(`id asked ${idAnamnesis}`);
 
     if ( idAnamnesis === '0' ) {
-      this.pageTitle = 'Nueva consulta';
+      this.pageTitle = 'Nueva anamnesis';
       this.btnText = 'Crear';
       this.anamnesisItem = AnamnesisItem.InitDefault(uidUser);
     } else {
@@ -145,9 +147,9 @@ export class UserAnamnesisEditComponent implements OnInit {
     }
 
     if (this.anamnesisItem.id === '0') {
-      this.pageTitle = 'Nueva consulta';
+      this.pageTitle = 'Nueva anamnesis';
     } else {
-      this.pageTitle = `Edición de consulta`;
+      this.pageTitle = `Edición de anamnesis`;
     }
 
     // Update the data on the form

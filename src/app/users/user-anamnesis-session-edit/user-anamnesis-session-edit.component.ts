@@ -6,29 +6,30 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 
-import { IUser, User } from '@models/user';
-import { ISession, Session } from '@models/session';
 import { UsersService } from '@services/user.service';
+import { AnamnesisService } from '@services/anamnesis.service';
 import { SessionsService } from '@services/session.service';
+import { IUser, User } from '@models/user';
+import { IAnamnesisItem, AnamnesisItem } from '@models/anamnesis-item';
+import { ISession, Session } from '@models/session';
 
 @Component({
-  selector: 'app-user-session-edit',
-  templateUrl: './user-session-edit.component.html',
-  styleUrls: ['./user-session-edit.component.scss']
+  selector: 'app-user-anamnesis-session-edit',
+  templateUrl: './user-anamnesis-session-edit.component.html',
+  styleUrls: ['./user-anamnesis-session-edit.component.scss']
 })
-export class UserSessionEditComponent implements OnInit {
+export class UserAnamnesisSessionEditComponent implements OnInit {
 
   sessionForm!: FormGroup;
   submitted = false;
-  pageTitle = 'Nueva consulta';
+  pageTitle = 'Nueva sesión';
   btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
-  userName: string;
 
-  public uidUser: string;
-  public user!: IUser | undefined;
-  public session!: ISession | undefined;
+  public user$: Observable<IUser>;
+  public anamnesisItem$: Observable<IAnamnesisItem>;
+  public session: ISession;
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -36,23 +37,21 @@ export class UserSessionEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private usersSrv: UsersService,
+    private anamnesisSrv: AnamnesisService,
     private sessionsSrv: SessionsService) { }
 
   ngOnInit(): void {
 
-    const idSession = this.route.snapshot.paramMap.get('sessionId');
-    this.uidUser = this.route.snapshot.paramMap.get('uid');
-    if ( idSession ) {
-      console.log(`id asked ${idSession}`);
-      console.log(`uid asked ${this.uidUser}`);
-      if ( this.uidUser ) {
-        this.usersSrv.getOneUser(this.uidUser)
-          .subscribe(
-            (user: IUser) => {
-              this.userName = `${user.name} ${user.surname}`;
-            });
-        this.getDetails(idSession, this.uidUser);
-      }
+    const userUid = this.route.snapshot.paramMap.get('uid');
+    this.user$ = this.usersSrv.getOneUser(userUid);
+
+    const anamnesisId = this.route.snapshot.paramMap.get('anamnesisId');
+    this.anamnesisItem$ = this.anamnesisSrv.getOneAnamnesisItem(anamnesisId);
+
+    const sessionId = this.route.snapshot.paramMap.get('sessionId');
+    if ( sessionId ) {
+      console.log(`id asked ${sessionId}`);
+      this.getDetails(sessionId, anamnesisId, userUid);
     }
 
     const today = new Date();
@@ -62,9 +61,12 @@ export class UserSessionEditComponent implements OnInit {
     this.sessionForm = this.fb.group({
       id: [{value: '0', disabled: true}],
       active: true,
-      userId: this.uidUser,
+      userId: userUid,
+      anamnesisId,
       date: [todayStr, Validators.required],
-      symptoms: ['', Validators.required]
+      painRank: [0, Validators.required],
+      symptoms: ['', Validators.required],
+      treatment: ['', Validators.required],
     });
   }
 
@@ -86,8 +88,7 @@ export class UserSessionEditComponent implements OnInit {
           this.sessionsSrv.updateSession(sessionItem);
         }
 
-        this.router.navigate([ User.PATH_URL]);
-
+        this.router.navigate([`${User.PATH_URL}/${this.session.userId}/${AnamnesisItem.PATH_URL}/${this.session.anamnesisId}`]);
     } else {
       this.errorMessage = 'Por favor, corrige los mensajes de validación.';
     }
@@ -110,13 +111,13 @@ export class UserSessionEditComponent implements OnInit {
    this.router.navigate([`/${User.PATH_URL}`]);
  }
 
-  private getDetails(idSession: string, uidUser: string): void {
+  private getDetails(idSession: string, anamnesisId: string, userUid: string): void {
     console.log(`id asked ${idSession}`);
 
     if ( idSession === '0' ) {
-      this.pageTitle = 'Nueva consulta';
+      this.pageTitle = 'Nueva sesión';
       this.btnText = 'Crear';
-      this.session = Session.InitDefault(uidUser);
+      this.session = Session.InitDefault(userUid, anamnesisId);
     } else {
       this.btnText = 'Actualizar';
       this.sessionsSrv.getOneSession(idSession)
@@ -124,7 +125,6 @@ export class UserSessionEditComponent implements OnInit {
         next: (session: ISession | undefined) => {
           this.session = session;
           this.displaySession();
-          console.log(JSON.stringify(this.user));
         },
         error: err => {
           this.errorMessage = `Error: ${err}`;
@@ -141,9 +141,9 @@ export class UserSessionEditComponent implements OnInit {
     }
 
     if (this.session.id === '0') {
-      this.pageTitle = 'Nueva consulta';
+      this.pageTitle = 'Nueva sesión';
     } else {
-      this.pageTitle = `Edición de consulta`;
+      this.pageTitle = `Edición de sesión`;
     }
 
     // Update the data on the form
@@ -151,8 +151,11 @@ export class UserSessionEditComponent implements OnInit {
       id: this.session.id,
       active: this.session.active,
       userId: this.session.userId,
+      anamnesisId: this.session.anamnesisId,
       date: this.session.date,
+      painRank: this.session.painRank,
       symptoms: this.session.symptoms,
+      treatment: this.session.treatment,
     });
 
     // eslint-disable-next-line @typescript-eslint/dot-notation
