@@ -1,7 +1,7 @@
 <div *ngIf="user$ | async as user; else noUserTemplate">
 
     <div class="jumbotron">
-        <h1 class="text-center">Ficha de {{ user.name }}</h1>
+        <div class="title">Ficha de {{ user.name }}</div>
     </div>
 
     <div class="container-fluid">

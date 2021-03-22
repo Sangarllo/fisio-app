@@ -8,6 +8,7 @@ import { UserEditComponent } from '@app/users/user-edit/user-edit.component';
 import { UserAnamnesisEditComponent } from '@app/users/user-anamnesis-edit/user-anamnesis-edit.component';
 import { UserAnamnesisViewComponent } from '@app/users/user-anamnesis-view/user-anamnesis-view.component';
 import { UserAnamnesisSessionEditComponent } from '@app/users/user-anamnesis-session-edit/user-anamnesis-session-edit.component';
+import { UserAnamnesisSessionViewComponent } from '@app/users/user-anamnesis-session-view/user-anamnesis-session-view.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: ':uid/anamnesis/:anamnesisId/editar',
     component: UserAnamnesisEditComponent,
+  },
+  {
+    path: ':uid/anamnesis/:anamnesisId/sesiones/:sessionId',
+    component: UserAnamnesisSessionViewComponent,
   },
   {
     path: ':uid/anamnesis/:anamnesisId/sesiones/:sessionId/editar',

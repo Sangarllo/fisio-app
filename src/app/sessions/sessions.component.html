@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h3 class="text-center">Listado de Sesiones</h3>
+    <div class="title">Listado de Sesiones</div>
 </div>
 
 <div class="container">
@@ -20,24 +20,20 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Fecha</th>
+                <th scope="col">Creación</th>
+                <th scope="col">Persona</th>
                 <th scope="col">Síntomas</th>
                 <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let session of sessions$ | async as sessions; index as i">
-                <td class="td-date" (click)="gotoSession(session)">{{ session.date }}</td>
-                <td (click)="gotoSession(session)">{{ session.symptoms }}</td>
+            <tr *ngFor="let session of sessions$ | async as sessions; index as i" (click)="gotoSession(session)">
+                <td class="td-date">{{ session.date | date:'MMM d' }}</td>
+                <td>{{ session.username }}</td>
+                <td>{{ session.symptoms }}</td>
                 <td class="buttons-3 float-right">
                     <a (click)="editSession(session)">
                         <i class="bi-pencil-square text-primary"></i>
-                    </a>
-                    <a *ngIf="session.active" (click)="disableSession(session)">
-                        <i class="bi-person-dash text-primary"></i>
-                    </a>
-                    <a *ngIf="!session.active" (click)="enableSession(session)">
-                        <i class="bi-person-plus-fill text-primary"></i>
                     </a>
                 </td>
 

@@ -1,7 +1,8 @@
-<div *ngIf="anamnesisItem && user; else noAnamnesisTemplate">
+<div class="div-page" *ngIf="anamnesisItem && user && session; else noSessionTemplate">
 
     <div class="jumbotron">
-        <div class="subtitle">Anamnesis de {{ user.name }} {{ user.surname }}</div>
+        <div class="subtitle">{{ user.date | date:'fullDate' }}</div>
+        <div class="subtitle">sesión de {{ user.name }} {{ user.surname }}</div>
         <div class="title">{{ anamnesisItem.diagnosis }}</div>
     </div>
 
@@ -11,7 +12,7 @@
 
             <div class="col-12 col-md-6">
 
-                <div class="card" (click)="gotoUser(user)">
+                <div class="card" (click)="gotoUser()">
                     <div class="card-body">
                         <h5 class="card-title">{{ user.name }} {{ user.surname }}</h5>
                         <div class="card-text my-3">
@@ -32,13 +33,13 @@
                     </div>
                 </div>
 
-                <div class="card mt-3">
+                <div class="card my-3" (click)="gotoAnamnesisItem()">
                     <div class="card-body">
-                        <h5 class="card-title">Anamnesis del día {{ anamnesisItem.date }}</h5>
+                        <h5 class="card-title">Anamnesis del {{ anamnesisItem.date | date:'fullDate' }}</h5>
                         <div class="card-text my-3">
                             <div class="my-2" *ngIf="anamnesisItem.diagnosis">
-                                <a><i class="bi-clipboard-check" style="font-size: 1rem;color:gray;"></i> {{ anamnesisItem.diagnosis }}
-                                </a>
+                                <ha><i class="bi-clipboard-check" style="font-size: 1rem;color:gray;"></i> {{ anamnesisItem.diagnosis }}
+                                </ha>
                             </div>
                             <div class="my-2" *ngIf="anamnesisItem.reason">
                                 <a><i class="bi-broadcast" style="font-size: 1rem;color:gray;" ></i></a> {{ anamnesisItem.reason }}
@@ -57,17 +58,35 @@
 
                         <button type="button" class="btn btn-success" (click)="editAnamnesisItem()"><i class="bi-pencil"></i> Editar Info</button>
 
-                        <button type="button" class="btn btn-primary mx-2" (click)="gotoNewSession()"><i class="bi-calendar-plus"></i> Nueva Sesión</button>
-
                     </div>
                 </div>
-
 
             </div>
 
             <div class="col-12 col-md-6">
 
-                <sh-user-anamnesis-sessions-list [user]="user" [anamnesisItem]="anamnesisItem"></sh-user-anamnesis-sessions-list>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sessión del {{ anamnesisItem.date | date:'fullDate' }}</h5>
+                        <div class="card-text my-3">
+                            <div class="my-2" *ngIf="session.painRank">
+                                <a><i class="bi-graph-down" style="font-size: 1rem;color:gray;"></i> Grado de dolor: {{ session.painRank }}
+                                </a>
+                            </div>
+                            <div class="my-2" *ngIf="session.symptoms">
+                                <a><i class="bi-info-circle" style="font-size: 1rem;color:gray;" ></i></a> {{ session.symptoms }}
+                            </div>
+                            <div class="my-2" *ngIf="session.treatment">
+                                <a><i class="bi-shield-check" style="font-size: 1rem;color:gray; " ></i></a> {{ session.treatment }}
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-success" (click)="editSession()"><i class="bi-pencil"></i> Editar Info</button>
+
+                        <button type="button" class="btn btn-danger ml-3" (click)="removeSession()"><i class="bi-trash"></i> Eliminar</button>
+
+                    </div>
+                </div>
 
             </div>
 
@@ -77,6 +96,6 @@
 
 </div>
 
-<ng-template #noAnamnesisTemplate>
+<ng-template #noSessionTemplate>
     <mat-spinner></mat-spinner>
 </ng-template>

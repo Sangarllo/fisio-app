@@ -31,7 +31,6 @@
                     <!--<th scope="col">Id</th>-->
                     <!--<th scope="col">Active</th>-->
                     <th scope="col">Fecha</th>
-                    <th scope="col">Anamnesis</th>
                     <th scope="col">Síntomas</th>
                     <th scope="col"></th>
                 </tr>
@@ -39,10 +38,7 @@
             <tbody>
                 <tr *ngFor="let session of sessions; index as i">
                     <th scope="row" style="text-align: right;">{{ session.painRank }}</th>
-                    <!--<td>{{ session.id }}</td>-->
-                    <!--<td>{{ session.active }}</td>-->
                     <td>{{ session.date }}</td>
-                    <td>{{ session.anamnesisId }}</td>
                     <td>{{ session.symptoms }}</td>
                     <td class="32 float-right">
                         <a (click)="editSession(session)">

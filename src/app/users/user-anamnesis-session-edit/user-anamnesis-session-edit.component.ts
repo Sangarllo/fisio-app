@@ -30,6 +30,7 @@ export class UserAnamnesisSessionEditComponent implements OnInit {
   public user$: Observable<IUser>;
   public anamnesisItem$: Observable<IAnamnesisItem>;
   public session: ISession;
+  username: string;
 
   constructor(
     private afStorage: AngularFireStorage,
@@ -43,7 +44,13 @@ export class UserAnamnesisSessionEditComponent implements OnInit {
   ngOnInit(): void {
 
     const userUid = this.route.snapshot.paramMap.get('uid');
-    this.user$ = this.usersSrv.getOneUser(userUid);
+    if ( userUid ) {
+      this.usersSrv.getOneUser(userUid)
+        .subscribe(
+          (user: IUser) => {
+            this.username = `${user.name} ${user.surname}`;
+          });
+    }
 
     const anamnesisId = this.route.snapshot.paramMap.get('anamnesisId');
     this.anamnesisItem$ = this.anamnesisSrv.getOneAnamnesisItem(anamnesisId);
@@ -80,7 +87,11 @@ export class UserAnamnesisSessionEditComponent implements OnInit {
 
     if (this.sessionForm.valid) {
 
-        const sessionItem = { ...this.session, ...this.sessionForm.value };
+        const sessionItem = {
+          ...this.session,
+          ...this.sessionForm.value,
+          username: this.username
+        };
 
         if (sessionItem.id === '0') {
           this.sessionsSrv.addSession(sessionItem);
@@ -94,22 +105,29 @@ export class UserAnamnesisSessionEditComponent implements OnInit {
     }
   }
 
- public onSaveComplete(): void {
-   // Reset the form to clear the flags
-   this.sessionForm.reset();
-   Swal.fire({
-     icon: 'success',
-     title: 'Datos guardados con éxito',
-     text: `Los datos de esta sesión se han guardado correctamente`,
-     // footer: '<a href>Why do I have this issue?</a>'
-   });
-   this.router.navigate([`/${User.PATH_URL}`]);
- }
+  public onSaveComplete(): void {
+    this.sessionForm.reset();
+    Swal.fire({
+      icon: 'success',
+      title: 'Datos guardados con éxito',
+      text: `Los datos de esta sesión se han guardado correctamente`,
+      // footer: '<a href>Why do I have this issue?</a>'
+    });
+    this.router.navigate([`/${User.PATH_URL}`]);
+  }
 
- public gotoList(): void {
-   this.sessionForm.reset();
-   this.router.navigate([`/${User.PATH_URL}`]);
- }
+  public gotoList(): void {
+    this.sessionForm.reset();
+    this.router.navigate([`/${User.PATH_URL}`]);
+  }
+
+  public gotoUser(): void {
+    this.router.navigate([`/${User.PATH_URL}/${this.session.userId}`]);
+  }
+
+  public gotoAnamnesisItem(): void {
+    this.router.navigate([`/${User.PATH_URL}/${this.session.userId}/${AnamnesisItem.PATH_URL}/${this.session.anamnesisId}`]);
+  }
 
   private getDetails(idSession: string, anamnesisId: string, userUid: string): void {
     console.log(`id asked ${idSession}`);

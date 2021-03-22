@@ -1,12 +1,17 @@
 <div class="jumbotron">
-    <h1 class="text-center">{{ pageTitle }}</h1>
+    <div class="title">{{ pageTitle }}</div>
 </div>
 
 <div class="container div-page">
     <form [formGroup]="anamnesisForm">
 
-        <div class="form-group" *ngIf="userName">
-            <input type="text" class="form-control" [value]="userName" disabled />
+        <div class="input-group mb-3" *ngIf="username">
+            <input type="text" class="form-control" [value]="username" disabled />
+            <span class="input-group-append border-left-0">
+            <span class="input-group-text bg-transparent" (click)="gotoUser()">
+              <i class="bi-person text-primary"></i>
+            </span>
+            </span>
         </div>
 
         <div class="form-group">

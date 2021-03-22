@@ -1,5 +1,5 @@
 <div class="jumbotron">
-    <h1 class="text-center">Listado de Anamnesis</h1>
+    <div class="title">Listado de Anamnesis</div>
 </div>
 
 <div class="container">
@@ -23,7 +23,6 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Persona</th>
                 <th scope="col">Diagnóstico</th>
@@ -32,19 +31,12 @@
         </thead>
         <tbody>
             <tr *ngFor="let anamnesisItem of anamnesis$ | async as anamnesis; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td class="td-date" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date }}</td>
+                <td class="td-date" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date | date:'MMM d'}}</td>
                 <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.username }}</td>
                 <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
                 <td class="buttons-3 float-right">
                     <a (click)="editAnamnesisItem(anamnesisItem)">
                         <i class="bi-pencil-square text-primary"></i>
-                    </a>
-                    <a *ngIf="anamnesisItem.active" (click)="disableAnamnesisItem(anamnesisItem)">
-                        <i class="bi-person-dash text-primary"></i>
-                    </a>
-                    <a *ngIf="!anamnesisItem.active" (click)="enableAnamnesisItem(anamnesisItem)">
-                        <i class="bi-person-plus-fill text-primary"></i>
                     </a>
                 </td>
             </tr>

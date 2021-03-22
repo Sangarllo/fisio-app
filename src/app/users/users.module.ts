@@ -12,6 +12,7 @@ import { UserAnamnesisEditComponent } from '@app/users/user-anamnesis-edit/user-
 import { UserAnamnesisListComponent } from '@app/users/user-anamnesis-list/user-anamnesis-list.component';
 import { UserAnamnesisSessionsListComponent } from '@app/users/user-anamnesis-sessions-list/user-anamnesis-sessions-list.component';
 import { UserAnamnesisSessionEditComponent } from '@app/users/user-anamnesis-session-edit/user-anamnesis-session-edit.component';
+import { UserAnamnesisSessionViewComponent } from '@app/users/user-anamnesis-session-view/user-anamnesis-session-view.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { UserAnamnesisSessionEditComponent } from '@app/users/user-anamnesis-ses
     UserAnamnesisListComponent,
     UserAnamnesisSessionsListComponent,
     UserAnamnesisSessionEditComponent,
+    UserAnamnesisSessionViewComponent,
     UserSessionsListComponent,
   ],
   imports: [

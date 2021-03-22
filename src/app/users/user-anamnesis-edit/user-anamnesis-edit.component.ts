@@ -24,7 +24,7 @@ export class UserAnamnesisEditComponent implements OnInit {
   btnText = 'Crear';
   errorMessage = '';
   uploadPercent: Observable<number>;
-  userName: string;
+  username: string;
 
   public uidUser: string;
   public user!: IUser | undefined;
@@ -43,13 +43,11 @@ export class UserAnamnesisEditComponent implements OnInit {
     const idAnamnesis = this.route.snapshot.paramMap.get('anamnesisId');
     this.uidUser = this.route.snapshot.paramMap.get('uid');
     if ( idAnamnesis ) {
-      console.log(`id asked ${idAnamnesis}`);
-      console.log(`uid asked ${this.uidUser}`);
       if ( this.uidUser ) {
         this.usersSrv.getOneUser(this.uidUser)
           .subscribe(
             (user: IUser) => {
-              this.userName = `${user.name} ${user.surname}`;
+              this.username = `${user.name} ${user.surname}`;
             });
         this.getDetails(idAnamnesis, this.uidUser);
       }
@@ -82,7 +80,11 @@ export class UserAnamnesisEditComponent implements OnInit {
 
     if (this.anamnesisForm.valid) {
 
-        const anamnesisItem = { ...this.anamnesisItem, ...this.anamnesisForm.value };
+        const anamnesisItem = {
+          ...this.anamnesisItem,
+          ...this.anamnesisForm.value,
+          username: this.username
+        };
 
         if (anamnesisItem.id === '0') {
           const newId = this.anamnesisSrv.addAnamnesisItem(anamnesisItem);
@@ -115,6 +117,10 @@ export class UserAnamnesisEditComponent implements OnInit {
    this.anamnesisForm.reset();
    this.router.navigate([`/${User.PATH_URL}`]);
  }
+
+ public gotoUser(): void {
+  this.router.navigate([`/${User.PATH_URL}/${this.uidUser}`]);
+}
 
   private getDetails(idAnamnesis: string, uidUser: string): void {
     console.log(`id asked ${idAnamnesis}`);

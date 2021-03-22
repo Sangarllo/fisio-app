@@ -49,32 +49,6 @@ export class AnamnesisComponent {
     this.router.navigate([`${User.PATH_URL}/${anamnesisItem.userId}/${AnamnesisItem.PATH_URL}/${anamnesisItem.id}/editar`]);
   }
 
-  public disableUser(anamnesisItem: IAnamnesisItem): void {
-    console.log(`deleting ${anamnesisItem.id}`);
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Eliminación lógica',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: '¡Sí, eliminar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.anamnesisSrv.enableAnamnesisItem(anamnesisItem, false);
-        Swal.fire(
-          '¡Deshabilitado!',
-          `${anamnesisItem.diagnosis} ha sido eliminado`,
-          'success'
-        );
-      }
-    });
-  }
-
-  public enableAnamnesisItem(anamnesisItem: IAnamnesisItem): void {
-    console.log(`enabling ${anamnesisItem.id}`);
-    this.anamnesisSrv.enableAnamnesisItem(anamnesisItem, true);
-  }
 
   private search(text: string): IAnamnesisItem[] {
     return this.anamnesis.filter(anamnesisItem => {

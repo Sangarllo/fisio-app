@@ -8,7 +8,7 @@ export interface ISession {
   painRank?: number;
   symptoms?: string;
   treatment?: string;
-  anamnesisTxt?: string;
+  username?: string;
 }
 
 export class Session implements ISession {
@@ -24,6 +24,7 @@ export class Session implements ISession {
     public painRank?: number,
     public symptoms?: string,
     public treatment?: string,
+    public username?: string
      ) {
   }
 
@@ -42,6 +43,7 @@ export class Session implements ISession {
       null,
       '',
       '',
+      ''
     );
   }
 }
