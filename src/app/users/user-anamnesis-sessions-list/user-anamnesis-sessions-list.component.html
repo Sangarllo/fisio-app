@@ -1,6 +1,6 @@
 <div class="container-fluid mt-3" *ngIf="sessions$ | async as sessions">
 
-    <h3 class="text-center">Sesiones asociadas</h3>
+    <h3 class="text-center">Sesiones de la anamnesis</h3>
     <h6 class="text-center" style="color:gray;text-transform: uppercase;">(#{{ sessions.length }}) {{ anamnesisItem.diagnosis }}</h6>
 
     <div class="container-fluid" *ngIf="sessions.length > 0; else noSessionsTemplate">
@@ -28,27 +28,21 @@
             <thead>
                 <tr>
                     <th scope="col">🌡️</th>
-                    <!--<th scope="col">Id</th>-->
-                    <!--<th scope="col">Active</th>-->
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Síntomas</th>
-                    <th scope="col"></th>
+                    <th class="td-collapsed-table" scope="col">Info</th>
+                    <th class="td-extra" scope="col">Fecha</th>
+                    <th class="td-extra" scope="col">Síntomas</th>
+                    <th class="td-extra" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let session of sessions; index as i">
-                    <!--<th scope="row">{{ i + 1 }}</th>-->
                     <th scope="row">{{ session.painRank }}</th>
-                    <!--<td>{{ session.id }}</td>-->
-                    <!--<td>{{ session.active }}</td>-->
-                    <td>{{ session.date }}</td>
-                    <td>{{ session.symptoms }}</td>
-                    <td class="buttons-3 float-right">
-                        <!--
-                        <a (click)="gotoSession(session)">
-                            <i class="bi-arrow-right-square text-info"></i>
-                        </a>&nbsp;&nbsp;
-                        -->
+                    <td class="td-collapsed-table" (click)="gotoSession(session)">
+                        <small *ngIf="session.date"><i class="bi-calendar"></i> {{ session.date | date:'fullDate'}}<br/></small> {{ session.symptoms }}
+                    </td>
+                    <td class="td-extra" (click)="gotoSession(session)">{{ session.date | date:'fullDate'}}</td>
+                    <td class="td-extra" (click)="gotoSession(session)">{{ session.symptoms }}</td>
+                    <td class="td-extra buttons-3 float-right">
                         <a (click)="editSession(session)">
                             <i class="bi-pencil text-primary"></i>
                         </a>&nbsp;&nbsp;
@@ -56,7 +50,6 @@
                             <i class="bi-calendar-minus text-primary"></i>
                         </a>
                     </td>
-
                 </tr>
             </tbody>
         </table>

@@ -1,57 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+    /* You can add global styles to this file, and also import other style files */
+    /* Importing Bootstrap SCSS file. */
 
-
-/* Importing Bootstrap SCSS file. */
-
-@import '~bootstrap/scss/bootstrap';
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
-a:hover {
-    text-decoration: none;
-}
-
-tr.disabled-row {
-    background-color: indianred !important;
-    color: darkred;
-    .text-primary {
-        color: darkred !important;
+    @import '~bootstrap/scss/bootstrap';
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css");
+    a:hover {
+        text-decoration: none;
     }
-}
 
-.table,
-.div-page {
-    margin-bottom: 60px !important;
-    min-width: 500px;
-}
-
-td.buttons-3 {
-    width: 100px;
-    max-width: 100px;
-    display: inline-block;
-    text-align: center;
-    a {
-        margin-right: 8px;
+    tr.disabled-row {
+        background-color: indianred !important;
+        color: darkred;
+        .text-primary {
+            color: darkred !important;
+        }
     }
-}
 
-td.td-date {
-    width: 120px;
-    max-width: 120px;
-}
-
-.jumbotron {
-    background-color: yellowgreen !important;
-    padding: 1rem !important;
-    text-align: center;
-}
-
-@media (max-width: 600px) {
-    .title {
-        font-size: 2rem;
+    .table,
+    .div-page {
+        margin-bottom: 60px !important;
+        min-width: 500px;
     }
-}
 
-@media (min-width: 601px) {
-    .title {
-        font-size: 3rem;
+    td.buttons-3 {
+        width: 100px;
+        max-width: 100px;
+        display: inline-block;
+        text-align: center;
+        a {
+            margin-right: 8px;
+        }
     }
-}
+
+    .jumbotron {
+        background-color: yellowgreen !important;
+        padding: 1rem !important;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        .title {
+            font-size: 2rem;
+        }
+        td.td-date {
+            width: 80px;
+            max-width: 80px;
+        }
+        .td-extra {
+            display: none !important;
+        }
+    }
+
+    @media (min-width: 601px) {
+        .title {
+            font-size: 3rem;
+        }
+        td.td-date {
+            width: 120px;
+            max-width: 120px;
+        }
+        .td-collapsed-table {
+            width: 601px;
+            max-width: 601px;
+            display: none !important;
+        }
+    }

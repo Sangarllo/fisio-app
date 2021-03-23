@@ -79,9 +79,9 @@ export class UserEditComponent implements OnInit {
         if (userItem.uid === '0') {
           const newId = this.usersSrv.addUser(userItem);          this.router.navigate([ `${User.PATH_URL}/${newId}`]);
         } else {
-          console.log(`editando`);
+          console.log(`editando ${JSON.stringify(userItem)}`);
           this.usersSrv.updateUser(userItem);
-          this.router.navigate([`${User.PATH_URL}/${userItem.id}`]);
+          this.router.navigate([`${User.PATH_URL}/${userItem.uid}`]);
         }
     } else {
       this.errorMessage = 'Por favor, corrige los mensajes de validación.';
@@ -167,9 +167,9 @@ export class UserEditComponent implements OnInit {
     this.usersSrv.enableUser(user, true);
   }
 
-  public disableUser(user: IUser): void {
-    console.log(`disabling ${user.uid}`);
-    this.usersSrv.enableUser(user, false);
+  public disableUser(): void {
+    console.log(`disabling ${this.user.uid}`);
+    this.usersSrv.enableUser(this.user, false);
   }
 
   public removeUser(user: IUser): void {

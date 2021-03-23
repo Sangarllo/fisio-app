@@ -23,18 +23,23 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Fecha</th>
-                <th scope="col">Persona</th>
-                <th scope="col">Diagnóstico</th>
-                <th scope="col"></th>
+                <th class="td-collapsed-table" scope="col">Anamnesis Info</th>
+                <th class="td-extra" scope="col">Creación</th>
+                <th class="td-extra" scope="col">Persona</th>
+                <th class="td-extra" scope="col">Diagnóstico</th>
+                <th class="td-extra" scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let anamnesisItem of anamnesis$ | async as anamnesis; index as i">
-                <td class="td-date" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date | date:'MMM d'}}</td>
-                <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.username }}</td>
-                <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
-                <td class="buttons-3 float-right">
+                <td class="td-collapsed-table" (click)="gotoAnamnesisItem(anamnesisItem)">
+                    <small *ngIf="anamnesisItem.date"><i class="bi-calendar"></i> {{ anamnesisItem.date | date:'fullDate'}}<br/></small>
+                    <small *ngIf="anamnesisItem.username"><i class="bi-person-square"></i> {{ anamnesisItem.username }}<br/></small> {{ anamnesisItem.diagnosis }}
+                </td>
+                <td class="td-extra" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date | date:'MMM d'}}</td>
+                <td class="td-extra" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.username }}</td>
+                <td class="td-extra" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
+                <td class="td-extra buttons-3 float-right">
                     <a (click)="editAnamnesisItem(anamnesisItem)">
                         <i class="bi-pencil-square text-primary"></i>
                     </a>

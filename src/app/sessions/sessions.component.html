@@ -20,18 +20,23 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">Creación</th>
-                <th scope="col">Persona</th>
-                <th scope="col">Síntomas</th>
-                <th scope="col"></th>
+                <th class="td-collapsed-table" scope="col">Info</th>
+                <th class="td-extra" scope="col">Fecha</th>
+                <th class="td-extra" scope="col">Persona</th>
+                <th class="td-extra" scope="col">Síntomas</th>
+                <th class="td-extra" scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let session of sessions$ | async as sessions; index as i" (click)="gotoSession(session)">
-                <td class="td-date">{{ session.date | date:'MMM d' }}</td>
-                <td>{{ session.username }}</td>
-                <td>{{ session.symptoms }}</td>
-                <td class="buttons-3 float-right">
+                <td class="td-collapsed-table" (click)="gotoSession(anamnesisItem)">
+                    <small *ngIf="session.date"><i class="bi-calendar"></i> {{ session.date | date:'fullDate'}}<br/></small>
+                    <small *ngIf="session.username"><i class="bi-person-square"></i> {{ session.username }}<br/></small>{{ session.symptoms }}
+                </td>
+                <td class="td-extra">{{ session.date | date:'MMM d' }}</td>
+                <td class="td-extra" (click)="gotoSession(session)">{{ session.username }}</td>
+                <td class="td-extra" (click)="gotoSession(session)">{{ session.symptoms }}</td>
+                <td class="td-extra buttons-3 float-right">
                     <a (click)="editSession(session)">
                         <i class="bi-pencil-square text-primary"></i>
                     </a>

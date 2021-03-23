@@ -33,30 +33,31 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th scope="col">#</th>
-                <!--<th scope="col">Id</th>-->
-                <!--<th scope="col">Active</th>-->
-                <th scope="col">Nombre</th>
-                <!--<th scope="col">Email</th>-->
-                <th scope="col"></th>
+                <th class="td-collapsed-table" scope="col">Usuarios</th>
+                <th class="td-extra" scope="col">#</th>
+                <th class="td-extra" scope="col">Nombre</th>
+                <th class="td-extra" scope="col">Email</th>
+                <th class="td-extra" scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of users$ | async as users; index as i" [ngClass]="user.active ? 'enable-row' : 'disabled-row' ">
-                <th scope="row">{{ i + 1 }}</th>
-                <!--<td>{{ user.uid }}</td>-->
-                <!--<td>{{ user.active }}</td>-->
-                <td (click)="gotoUser(user)">{{ user.surname }}, {{ user.name }}</td>
-                <!--<td>{{ user.email }}</td>-->
-                <td class="buttons-3 float-right">
-                    <a (click)="editUser(user)">
-                        <i class="bi-pencil-square text-primary"></i>
+                <td class="td-collapsed-table" (click)="gotoUser(user)">
+                    <small *ngIf="user.email"><i class="bi-envelope"></i> {{ user.email }}<br/></small>
+                    <i class="bi-person-square"></i> {{ user.surname }}, {{ user.name }}
+                </td>
+                <th class=" td-extra " scope="row ">{{ i + 1 }}</th>
+                <td class="td-extra " (click)="gotoUser(user) ">{{ user.surname }}, {{ user.name }}</td>
+                <td class="td-extra " (click)="gotoUser(user) ">{{ user.email }}</td>
+                <td class="td-extra buttons-3 float-right ">
+                    <a (click)="editUser(user) ">
+                        <i class="bi-pencil-square text-primary "></i>
                     </a>
-                    <a *ngIf="user.active" (click)="disableUser(user)">
-                        <i class="bi-person-dash text-primary"></i>
+                    <a *ngIf="user.active " (click)="disableUser(user) ">
+                        <i class="bi-person-dash text-primary "></i>
                     </a>
-                    <a *ngIf="!user.active" (click)="enableUser(user)">
-                        <i class="bi-person-plus-fill text-primary"></i>
+                    <a *ngIf="!user.active " (click)="enableUser(user) ">
+                        <i class="bi-person-plus-fill text-primary "></i>
                     </a>
                 </td>
             </tr>

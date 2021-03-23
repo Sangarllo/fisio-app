@@ -24,18 +24,20 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <!--<th scope="col">#</th>-->
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Diagnóstico</th>
-                    <th scope="col"></th>
+                    <th class="td-collapsed-table" scope="col">Anamnesis Info</th>
+                    <th class="td-extra" scope="col">Creación</th>
+                    <th class="td-extra" scope="col">Diagnóstico</th>
+                    <th class="td-extra" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let anamnesisItem of anamnesis; index as i">
-                    <!--<th scope="row">{{ i + 1 }}</th>-->
-                    <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date }}</td>
-                    <td (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
-                    <td class="buttons-3 float-right">
+                    <td class="td-collapsed-table" (click)="gotoAnamnesisItem(anamnesisItem)">
+                        <small *ngIf="anamnesisItem.date"><i class="bi-calendar"></i> {{ anamnesisItem.date | date:'fullDate'}}<br/></small> {{ anamnesisItem.diagnosis }}
+                    </td>
+                    <td class="td-extra" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.date }}</td>
+                    <td class="td-extra" (click)="gotoAnamnesisItem(anamnesisItem)">{{ anamnesisItem.diagnosis }}</td>
+                    <td class="td-extra buttons-3 float-right">
                         <a (click)="editAnamnesisItem(anamnesisItem)">
                             <i class="bi-pencil text-primary"></i>
                         </a>

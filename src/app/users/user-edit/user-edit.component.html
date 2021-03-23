@@ -59,7 +59,7 @@
         <div class="row">
             <div class="form-group col-12 col-md-6">
                 <label for="birthdate ">Nacimiento</label>
-                <input type="text" formControlName="birthdate" class="form-control" placeholder="Nacimiento" />
+                <input type="date" formControlName="birthdate" class="form-control" placeholder="Nacimiento" />
             </div>
 
             <div class="form-group col-12 col-md-6">
@@ -78,7 +78,7 @@
         <div class="row">
             <div class="col text-center">
                 <button type="submit" class="btn btn-primary m-2" [disabled]="!userForm.valid || !userForm.value.active" (click)="onSaveForm() ">{{ btnText }}</button>
-                <button *ngIf="user.uid !== '0'" type="submit" class="btn btn-warning m-2" [disabled]="!userForm.value.active" (click)="disableUser(user) ">Desactivar</button>
+                <button *ngIf="userForm.value.uid !== '0'" type="submit" class="btn btn-warning m-2" [disabled]="!userForm.value.active" (click)="disableUser() ">Desactivar</button>
             </div>
         </div>
 

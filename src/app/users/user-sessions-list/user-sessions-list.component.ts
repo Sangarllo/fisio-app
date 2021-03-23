@@ -47,13 +47,9 @@ export class UserSessionsListComponent {
     });
   }
 
-  public gotoNewSession(): void {
-    this.router.navigate([`usuarios/${this.uidUser}/consultas/0/editar`]);
+  public gotoSession(session: ISession): void {
+    this.router.navigate([`${User.PATH_URL}/${this.uidUser}/${AnamnesisItem.PATH_URL}/${session.anamnesisId}/${Session.PATH_URL}/${session.id}`]);
   }
-
-  // public gotoSession(session: ISession): void {
-  //   this.router.navigate([`usuarios/${this.uidUser}/consultas/${session.id}`]);
-  // }
 
   public editSession(session: ISession): void {
     this.router.navigate([`${User.PATH_URL}/${this.user.uid}/${AnamnesisItem.PATH_URL}/${session.anamnesisId}/${Session.PATH_URL}/${session.id}/editar`]);
